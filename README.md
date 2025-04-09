@@ -18,29 +18,6 @@ Sitio web oficial de Cielo Tico, empresa de tours y excursiones en Costa Rica.
 - Font Awesome
 - Google Fonts
 
-## Estructura del Proyecto
-
-```
-/
-├── css/
-│   └── estilos.css
-├── js/
-│   └── main.js
-├── img/
-│   ├── logo.png
-│   ├── slider1.jpg
-│   ├── slider2.jpg
-│   ├── slider3.jpg
-│   ├── slider4.jpg
-│   ├── slider5.jpg
-│   └── slider6.jpg
-├── index.html
-├── acerca.html
-├── servicios.html
-├── ubicacion.html
-└── contacto.html
-```
-
 ## Instalación
 
 1. Clona el repositorio:
