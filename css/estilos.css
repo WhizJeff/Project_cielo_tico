@@ -832,75 +832,27 @@ section {
 }
 
 /* Estilos para la página de Servicios */
-.hero-section {
-    background: var(--gradient-primary);
-    color: var(--color-light);
-    text-align: center;
-    padding: 6rem 2rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-    opacity: 0.1;
-}
-
-.hero-section h2 {
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 1;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-}
-
-.hero-section p {
-    font-size: 1.3rem;
-    max-width: 600px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-    line-height: 1.8;
-}
-
-.categorias-tours {
-    max-width: 1400px;
-    margin: 0 auto;
+#tours {
     padding: 4rem 2rem;
+    background-color: #f9f9f9;
 }
 
-.categoria {
-    margin-bottom: 4rem;
-}
-
-.categoria h3 {
-    font-size: 2.2rem;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.categoria h3 i {
-    color: var(--color-turquesa);
-    font-size: 2rem;
+.contenido-tours {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 .tours-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2.5rem;
+    margin-top: 3rem;
 }
 
 .tour-card {
     background: var(--color-light);
-    border-radius: 20px;
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -909,7 +861,6 @@ section {
 
 .tour-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
 }
 
 .tour-card img {
@@ -925,11 +876,13 @@ section {
 
 .tour-info {
     padding: 2rem;
+    background: var(--color-light);
 }
 
-.tour-info h4 {
+.tour-info h3 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
+    color: var(--color-text);
 }
 
 .tour-info p {
@@ -946,8 +899,8 @@ section {
 .tour-details li {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
     color: var(--color-text);
 }
 
@@ -956,76 +909,38 @@ section {
     width: 20px;
 }
 
-.info-adicional {
-    background-color: var(--color-arena);
-    padding: 4rem 2rem;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.info-card {
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--gradient-primary);
+    color: var(--color-light);
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
     text-align: center;
-    padding: 2.5rem;
-    background: var(--color-light);
-    border-radius: 20px;
-    box-shadow: var(--shadow-lg);
-    transition: transform 0.3s ease;
+    font-weight: 500;
 }
 
-.info-card:hover {
-    transform: translateY(-5px);
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
-.info-card i {
-    font-size: 2.5rem;
-    color: var(--color-turquesa);
-    margin-bottom: 1.5rem;
-}
-
-.info-card h3 {
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-}
-
-.info-card p {
-    color: var(--color-text);
-    line-height: 1.6;
-}
-
-/* Responsive para la página de Servicios */
 @media (max-width: 768px) {
-    .hero-section {
-        padding: 4rem 1rem;
-    }
-
-    .hero-section h2 {
-        font-size: 2.5rem;
-    }
-
-    .categorias-tours {
-        padding: 2rem 1rem;
-    }
-
-    .categoria h3 {
-        font-size: 1.8rem;
-    }
-
     .tours-grid {
         grid-template-columns: 1fr;
     }
 
-    .tour-card img {
-        height: 200px;
+    .tour-card {
+        margin-bottom: 2rem;
     }
 
-    .info-grid {
-        grid-template-columns: 1fr;
+    .tour-info {
+        padding: 1.5rem;
+    }
+
+    .tour-info h3 {
+        font-size: 1.5rem;
     }
 }
 
