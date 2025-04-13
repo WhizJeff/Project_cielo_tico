@@ -143,42 +143,7 @@ nav {
     list-style: none;
 }
 
-.nav-menu a {
-    color: var(--color-light);
-    text-decoration: none;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.nav-menu a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-coral);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: -1;
-}
-
-.nav-menu a:hover::before {
-    transform: translateX(0);
-}
-
-/* Botones de autenticación */
-header .auth-buttons {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    margin-left: auto;
-}
-
+.nav-menu a,
 header .btn-login,
 header .btn-register {
     color: var(--color-light);
@@ -194,9 +159,9 @@ header .btn-register {
     font-family: var(--font-body);
     font-weight: 400;
     cursor: pointer;
-    z-index: 1;
 }
 
+.nav-menu a::before,
 header .btn-login::before,
 header .btn-register::before {
     content: '';
@@ -209,8 +174,10 @@ header .btn-register::before {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     z-index: -1;
+    border-radius: 4px;
 }
 
+.nav-menu a:hover::before,
 header .btn-login:hover::before,
 header .btn-register:hover::before {
     transform: translateX(0);
