@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,7 +26,7 @@
                     <h1>Cielo Tico</h1>
                 </a>
             </div>
-            <button class="menu-toggle" aria-label="Abrir menú">
+            <button class="menu-toggle" aria-label="Menú">
                 <i class="fas fa-bars"></i>
             </button>
             <nav>
@@ -34,6 +37,10 @@
                     <li><a href="ubicacion.html">Ubicación</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
+                <div class="auth-buttons">
+                    <a href="login.php" class="btn-login">Iniciar Sesión</a>
+                    <a href="registro.php" class="btn-register">Registrarse</a>
+                </div>
             </nav>
         </div>
     </header>

@@ -172,44 +172,48 @@ nav {
 }
 
 /* Botones de autenticación */
-.auth-buttons {
+header .auth-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     align-items: center;
     margin-left: auto;
 }
 
-.btn-login,
-.btn-register {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 30px;
+header .btn-login,
+header .btn-register {
+    color: var(--color-light);
     text-decoration: none;
-    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
     transition: all 0.3s ease;
-    font-size: 1rem;
-    min-width: 100px;
-}
-
-.btn-login {
-    background-color: transparent;
-    color: var(--color-white);
-    border: 2px solid var(--color-white);
-}
-
-.btn-register {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    position: relative;
+    overflow: hidden;
     border: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-weight: 400;
+    cursor: pointer;
+    z-index: 1;
 }
 
-.btn-login:hover {
-    background-color: var(--color-white);
-    color: var(--color-primary);
+header .btn-login::before,
+header .btn-register::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-coral);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: -1;
 }
 
-.btn-register:hover {
-    background-color: var(--color-primary-dark);
+header .btn-login:hover::before,
+header .btn-register:hover::before {
+    transform: translateX(0);
 }
 
 .user-name {
@@ -265,15 +269,15 @@ nav {
         text-align: center;
     }
 
-    .auth-buttons {
+    header .auth-buttons {
         flex-direction: column;
         width: 100%;
         margin: 1rem 0 0 0;
         gap: 0.5rem;
     }
 
-    .btn-login,
-    .btn-register {
+    header .btn-login,
+    header .btn-register {
         width: 100%;
         text-align: center;
         padding: 0.8rem;

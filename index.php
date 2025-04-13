@@ -1,4 +1,5 @@
 <?php
+session_start();
 $pageTitle = 'Inicio';
 require_once 'templates/header.php';
 ?>

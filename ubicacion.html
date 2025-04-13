@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,6 +34,10 @@
                     <li><a href="ubicacion.html" class="active">Ubicación</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
+                <div class="auth-buttons">
+                    <a href="login.php" class="btn-login">Iniciar Sesión</a>
+                    <a href="registro.php" class="btn-register">Registrarse</a>
+                </div>
             </nav>
         </div>
     </header>
