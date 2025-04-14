@@ -75,7 +75,7 @@ session_start();
                 </div>
                 <div class="formulario-contacto">
                     <h3>Envíanos un Mensaje</h3>
-                    <form id="contactForm" action="#" method="POST">
+                    <form id="contactForm" action="procesar_contacto.php" method="POST">
                         <div class="form-group">
                             <label for="nombre">Nombre Completo</label>
                             <input type="text" id="nombre" name="nombre" required>
@@ -99,8 +99,9 @@ session_start();
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="mensaje">Mensaje</label>
-                            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                            <label for="mensaje">Mensaje (máximo 150 caracteres)</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" maxlength="150" required></textarea>
+                            <div id="contador">0/150 caracteres</div>
                         </div>
                         <button type="submit" class="btn-primary">Enviar Mensaje</button>
                     </form>
@@ -125,5 +126,44 @@ session_start();
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const mensaje = document.getElementById('mensaje');
+            const contador = document.getElementById('contador');
+
+            // Actualizar contador de caracteres
+            mensaje.addEventListener('input', function() {
+                const longitud = this.value.length;
+                contador.textContent = `${longitud}/150 caracteres`;
+            });
+
+            // Manejar envío del formulario
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                
+                fetch('procesar_contacto.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Mensaje enviado correctamente');
+                        form.reset();
+                        contador.textContent = '0/150 caracteres';
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al enviar el mensaje');
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
