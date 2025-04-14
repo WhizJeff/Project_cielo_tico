@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,23 +11,19 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="../js/script.js" defer></script>
 </head>
 <body>
     <header>
         <div class="header-content">
             <div class="logo-container">
-                <a href="index.html">
+                <a href="index.php">
                     <img src="../img/logo.png" alt="Cielo Tico Logo" class="logo">
                     <h1>Cielo Tico</h1>
                 </a>
             </div>
-            <button class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.php">Inicio</a></li>
                     <li><a href="acerca.html">Acerca de</a></li>
                     <li><a href="servicios.html">Servicios</a></li>
                     <li><a href="ubicacion.html">Ubicación</a></li>
@@ -40,7 +39,12 @@
         <section class="auth-section">
             <div class="auth-container">
                 <h2>Iniciar Sesión</h2>
-                <form class="auth-form" id="loginForm" action="../php/login_process.php" method="POST">
+                <?php if(isset($_SESSION['error'])): ?>
+                    <div class="alert alert-error">
+                        <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+                    </div>
+                <?php endif; ?>
+                <form id="loginForm" action="../php/login_process.php" method="POST">
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
                         <input type="email" id="email" name="email" required>
@@ -49,11 +53,8 @@
                         <label for="password">Contraseña</label>
                         <input type="password" id="password" name="password" required>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn-primary">Iniciar Sesión</button>
-                    </div>
-                    <div class="auth-links">
-                        <a href="recuperar-password.html">¿Olvidaste tu contraseña?</a>
+                    <button type="submit" class="btn-primary">Iniciar Sesión</button>
+                    <div class="register-link">
                         <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
                     </div>
                 </form>
@@ -76,7 +77,17 @@
         </div>
     </footer>
 
-    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
-    <script src="js/main.js" defer></script>
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        
+        if (!email || !password) {
+            e.preventDefault();
+            alert('Por favor, complete todos los campos');
+            return;
+        }
+    });
+    </script>
 </body>
 </html> 
