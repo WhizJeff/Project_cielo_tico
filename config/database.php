@@ -1,15 +1,9 @@
 <?php
-// Configuración de la base de datos
+// Configuración de la base de datos local
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'cielotico');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-
-// Zona horaria
-date_default_timezone_set('America/Costa_Rica');
-
-// Configuración de caracteres
-ini_set('default_charset', 'UTF-8');
+define('DB_USER', 'root'); // Usuario por defecto de MySQL en local
+define('DB_PASS', ''); // Contraseña por defecto en local (vacía)
+define('DB_NAME', 'cielotico_db');
 
 // Función para conectar a la base de datos
 function conectarDB() {
