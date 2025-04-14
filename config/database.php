@@ -1,9 +1,15 @@
 <?php
 // Configuración de la base de datos
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root'); // Cambiar por el usuario de tu base de datos
-define('DB_PASS', ''); // Cambiar por la contraseña de tu base de datos
-define('DB_NAME', 'cielotico_db');
+define('DB_NAME', 'cielotico');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+
+// Zona horaria
+date_default_timezone_set('America/Costa_Rica');
+
+// Configuración de caracteres
+ini_set('default_charset', 'UTF-8');
 
 // Función para conectar a la base de datos
 function conectarDB() {
