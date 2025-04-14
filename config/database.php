@@ -1,8 +1,8 @@
 <?php
-// Configuración de la base de datos
+// Configuración de la base de datos local
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root'); // Cambiar por el usuario de tu base de datos
-define('DB_PASS', ''); // Cambiar por la contraseña de tu base de datos
+define('DB_USER', 'root'); // Usuario por defecto de MySQL en local
+define('DB_PASS', ''); // Contraseña por defecto en local (vacía)
 define('DB_NAME', 'cielotico_db');
 
 // Función para conectar a la base de datos

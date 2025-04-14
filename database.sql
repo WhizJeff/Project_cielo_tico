@@ -11,7 +11,9 @@ CREATE TABLE IF NOT EXISTS contactos (
     asunto ENUM('reserva', 'informacion', 'queja', 'otro') NOT NULL,
     mensaje VARCHAR(150) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado ENUM('pendiente', 'respondido', 'archivado') DEFAULT 'pendiente'
+    estado ENUM('pendiente', 'respondido', 'archivado') DEFAULT 'pendiente',
+    INDEX idx_correo (correo_electronico),
+    INDEX idx_asunto (asunto)
 );
 
 -- Crear índice para búsquedas por correo electrónico
