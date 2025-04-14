@@ -8,6 +8,5 @@ $_SESSION = array();
 session_destroy();
 
 // Redirigir al inicio
-header("Location: ../html/index.php");
+header("Location: /cielotico/html/index.php");
 exit();
-?> 

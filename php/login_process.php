@@ -48,5 +48,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Si no es POST, redirigir al login
     header("Location: ../html/login.php");
     exit();
-}
-?> 
+} 
