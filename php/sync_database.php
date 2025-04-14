@@ -13,8 +13,8 @@ function syncDatabase() {
         
         echo "Base de datos sincronizada correctamente.\n";
         
-        // Exportar la base de datos actual
-        $backupFile = __DIR__ . '/../sql/backup_' . date('Y-m-d_H-i-s') . '.sql';
+        // Exportar la base de datos actual (backup completo)
+        $backupFile = __DIR__ . '/../sql/backup.sql';
         $command = sprintf(
             'mysqldump -u%s -p%s %s > %s',
             DB_USER,
@@ -27,7 +27,7 @@ function syncDatabase() {
         echo "Backup creado en: " . $backupFile . "\n";
         
         // Exportar solo los datos de usuarios y credenciales
-        $usersBackupFile = __DIR__ . '/../sql/users_backup_' . date('Y-m-d_H-i-s') . '.sql';
+        $usersBackupFile = __DIR__ . '/../sql/users_backup.sql';
         $command = sprintf(
             'mysqldump -u%s -p%s %s usuarios credenciales > %s',
             DB_USER,
