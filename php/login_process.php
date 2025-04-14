@@ -14,14 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     try {
+        // Crear conexión
         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-        $stmt = $conn->prepare("SELECT id, nombre, email, password FROM usuarios WHERE email = ?");
-        $stmt->execute([$email]);
+        // Preparar la consulta
+        $stmt = $conn->prepare("SELECT id, nombre, email, password FROM usuarios WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if ($usuario && password_verify($password, $usuario['password'])) {
+            // Login exitoso
             $_SESSION['user_id'] = $usuario['id'];
             $_SESSION['user_name'] = $usuario['nombre'];
             $_SESSION['user_email'] = $usuario['email'];
@@ -29,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ../html/index.php");
             exit();
         } else {
+            // Credenciales incorrectas
             $_SESSION['error'] = "Credenciales incorrectas.";
             header("Location: ../html/login.php");
             exit();
@@ -39,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 } else {
+    // Si no es POST, redirigir al login
     header("Location: ../html/login.php");
     exit();
 }

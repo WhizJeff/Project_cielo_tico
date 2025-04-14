@@ -4,7 +4,7 @@ require_once __DIR__ . '/config/database.php';
 function syncDatabase() {
     global $conn;
     
-    try {
+    try { 
         // Leer el archivo de migraciones
         $sql = file_get_contents(__DIR__ . '/../sql/migrations.sql');
         

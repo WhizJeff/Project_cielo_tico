@@ -16,19 +16,19 @@ session_start();
     <header>
         <div class="header-content">
             <div class="logo-container">
-                <a href="index.php">
+                <a href="index.html">
                     <img src="../img/logo.png" alt="Cielo Tico Logo" class="logo">
                     <h1>Cielo Tico</h1>
                 </a>
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="index.html">Inicio</a></li>
                     <li><a href="acerca.html">Acerca de</a></li>
                     <li><a href="servicios.html">Servicios</a></li>
                     <li><a href="ubicacion.html">Ubicación</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="login.html" class="btn-login">Iniciar Sesión</a></li>
+                    <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
                     <li><a href="registro.html" class="btn-register">Registro</a></li>
                 </ul>
             </nav>

@@ -1,8 +1,13 @@
 <?php
-require_once 'includes/auth.php';
+session_start();
 
-$auth = new Auth();
-$auth->logout();
+// Destruir todas las variables de sesión
+$_SESSION = array();
 
-header("Location: index.php");
-exit; 
+// Destruir la sesión
+session_destroy();
+
+// Redirigir al inicio
+header("Location: ../html/index.php");
+exit();
+?> 
