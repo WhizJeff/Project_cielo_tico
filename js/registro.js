@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     form.reset();
                     // Redirigir al login después de 2 segundos
                     setTimeout(() => {
-                        window.location.href = 'login.html';
+                        window.location.href = 'login.php';
                     }, 2000);
                 } else {
                     mostrarMensaje(data.message, 'error');

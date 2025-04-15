@@ -63,7 +63,7 @@ session_start();
     <main>
         <section class="registro-section">
             <h2>Crear Cuenta</h2>
-            <form class="form-registro" id="registroForm" action="../php/registro_process.php" method="POST">
+            <form class="form-registro" id="registroForm" action="../php/procesar_registro.php" method="POST">
                 <div class="form-group">
                     <label for="nombre">Nombre Completo</label>
                     <input type="text" id="nombre" name="nombre" required>
