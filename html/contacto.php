@@ -19,19 +19,7 @@ session_start();
             position: relative;
             display: inline-block;
         }
-        .user-menu-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #FF7F50;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1000;
-            border-radius: 4px;
-            top: 100%;
-            margin-top: 5px;
-        }
-        .user-menu-button {
+        .user-toggle {
             background: none;
             border: none;
             color: white;
@@ -42,14 +30,29 @@ session_start();
             gap: 8px;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
-        .user-menu-button:hover {
+        .user-toggle:hover {
             color: #FF7F50;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
         }
-        .user-menu.active .user-menu-content {
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #FF7F50;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 4px;
+            top: 100%;
+            margin-top: 5px;
+            list-style: none;
+            padding: 0;
+        }
+        .user-menu.active .user-dropdown {
             display: block;
             animation: fadeIn 0.3s ease;
         }
@@ -63,7 +66,7 @@ session_start();
                 transform: translateY(0);
             }
         }
-        .user-menu-content a {
+        .user-dropdown a {
             color: white;
             padding: 12px 16px;
             text-decoration: none;
@@ -71,8 +74,14 @@ session_start();
             transition: background-color 0.3s;
             font-family: 'Montserrat', sans-serif;
         }
-        .user-menu-content a:hover {
+        .user-dropdown a:hover {
             background-color: #FF6B3D;
+        }
+        .user-dropdown li:first-child a {
+            border-radius: 4px 4px 0 0;
+        }
+        .user-dropdown li:last-child a {
+            border-radius: 0 0 4px 4px;
         }
         .user-info {
             padding: 12px 16px;
@@ -110,19 +119,19 @@ session_start();
                     <li><a href="contacto.php">Contacto</a></li>
                     <?php if(isset($_SESSION['user_id'])): ?>
                         <li class="user-menu">
-                            <button class="user-menu-button" aria-label="Menú de usuario">
+                            <a href="#" class="user-toggle">
                                 <i class="fas fa-user"></i>
-                                <i class="fas fa-bars"></i>
-                            </button>
-                            <div class="user-menu-content">
-                                <div class="user-info">
-                                    <i class="fas fa-user-circle"></i>
-                                    <?php echo htmlspecialchars($_SESSION['user_name']); ?>
-                                </div>
-                                <a href="perfil.php"><i class="fas fa-user"></i> Mi Perfil</a>
-                                <a href="mis-reservas.php"><i class="fas fa-calendar-alt"></i> Mis Reservas</a>
-                                <a href="../php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-                            </div>
+                                <?php echo htmlspecialchars($_SESSION['nombre']); ?>
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="user-dropdown">
+                                <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+                                    <li><a href="/cielotico/html/admin/"><i class="fas fa-cog"></i> Administrator</a></li>
+                                <?php endif; ?>
+                                <li><a href="/cielotico/html/perfil.php"><i class="fas fa-user-circle"></i> Mi Perfil</a></li>
+                                <li><a href="/cielotico/html/mis_reservas.php"><i class="fas fa-calendar-check"></i> Mis Reservas</a></li>
+                                <li><a href="/cielotico/php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                            </ul>
                         </li>
                     <?php else: ?>
                         <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
@@ -209,5 +218,33 @@ session_start();
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const userToggle = document.querySelector('.user-toggle');
+        const userMenu = document.querySelector('.user-menu');
+
+        if (userToggle && userMenu) {
+            userToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                userMenu.classList.toggle('active');
+            });
+
+            // Cerrar el menú cuando se hace clic fuera de él
+            document.addEventListener('click', function(e) {
+                if (!userMenu.contains(e.target)) {
+                    userMenu.classList.remove('active');
+                }
+            });
+
+            // Cerrar el menú con la tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && userMenu.classList.contains('active')) {
+                    userMenu.classList.remove('active');
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html> 

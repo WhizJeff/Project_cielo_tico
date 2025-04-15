@@ -201,8 +201,8 @@ session_start();
             <p>&copy; 2025 Cielo Tico. Todos los derechos reservados.</p>
         </div>
     </footer>
+    <script src="../js/script.js"></script>
     <script>
-    // Manejo del menú de usuario
     document.addEventListener('DOMContentLoaded', function() {
         const userToggle = document.querySelector('.user-toggle');
         const userMenu = document.querySelector('.user-menu');
