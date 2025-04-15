@@ -28,7 +28,7 @@
                     <li><a href="acerca.html">Acerca de</a></li>
                     <li><a href="servicios.html">Servicios</a></li>
                     <li><a href="ubicacion.html">Ubicación</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="contacto.php">Contacto</a></li>
                     <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
                     <li><a href="registro.html" class="btn-register">Registro</a></li>
                 </ul>

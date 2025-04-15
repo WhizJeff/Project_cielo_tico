@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +20,7 @@
     <header>
         <div class="header-content">
             <div class="logo-container">
-                <a href="index.html">
+                <a href="index.php">
                     <img src="../img/logo.png" alt="Cielo Tico Logo" class="logo">
                     <h1>Cielo Tico</h1>
                 </a>
@@ -27,13 +30,31 @@
             </button>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="acerca.html">Acerca de</a></li>
-                    <li><a href="servicios.html">Servicios</a></li>
-                    <li><a href="ubicacion.html">Ubicación</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
-                    <li><a href="registro.html" class="btn-register">Registro</a></li>
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="acerca.php">Acerca de</a></li>
+                    <li><a href="servicios.php">Servicios</a></li>
+                    <li><a href="ubicacion.php">Ubicación</a></li>
+                    <li><a href="contacto.php">Contacto</a></li>
+                    <?php if(isset($_SESSION['user_id'])): ?>
+                        <li class="user-menu">
+                            <button class="user-menu-button" aria-label="Menú de usuario">
+                                <i class="fas fa-user"></i>
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <div class="user-menu-content">
+                                <div class="user-info">
+                                    <i class="fas fa-user-circle"></i>
+                                    <?php echo htmlspecialchars($_SESSION['user_name']); ?>
+                                </div>
+                                <a href="perfil.php"><i class="fas fa-user"></i> Mi Perfil</a>
+                                <a href="mis-reservas.php"><i class="fas fa-calendar-alt"></i> Mis Reservas</a>
+                                <a href="../php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                            </div>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
+                        <li><a href="registro.php" class="btn-register">Registro</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
@@ -42,7 +63,7 @@
     <main>
         <section class="registro-section">
             <h2>Crear Cuenta</h2>
-            <form class="form-registro" id="registroForm">
+            <form class="form-registro" id="registroForm" action="../php/registro_process.php" method="POST">
                 <div class="form-group">
                     <label for="nombre">Nombre Completo</label>
                     <input type="text" id="nombre" name="nombre" required>
@@ -68,7 +89,7 @@
                 <div class="form-group">
                     <label class="checkbox-container">
                         <input type="checkbox" id="terminos" name="terminos" required>
-                        Acepto los <a href="terminos.html">términos y condiciones</a>
+                        Acepto los <a href="terminos.php">términos y condiciones</a>
                     </label>
                 </div>
                 <button type="submit" class="btn-primary">Crear Cuenta</button>
@@ -94,7 +115,6 @@
         </div>
     </footer>
 
-    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
-    <script src="js/main.js" defer></script>
+    <script src="../js/main.js"></script>
 </body>
 </html> 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -25,17 +25,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        if ($usuario && password_verify($password, $usuario['password'])) {
-            // Login exitoso
-            $_SESSION['user_id'] = $usuario['id'];
-            $_SESSION['user_name'] = $usuario['nombre'];
-            $_SESSION['user_email'] = $usuario['email'];
-            
-            header("Location: ../html/index.php");
-            exit();
+        if ($usuario) {
+            if (password_verify($password, $usuario['password'])) {
+                // Login exitoso
+                $_SESSION['user_id'] = $usuario['id'];
+                $_SESSION['user_name'] = $usuario['nombre'];
+                $_SESSION['user_email'] = $usuario['email'];
+                
+                header("Location: ../html/index.php");
+                exit();
+            } else {
+                // Contraseña incorrecta
+                $_SESSION['error'] = "La contraseña es incorrecta.";
+                header("Location: ../html/login.php");
+                exit();
+            }
         } else {
-            // Credenciales incorrectas
-            $_SESSION['error'] = "Credenciales incorrectas.";
+            // Usuario no encontrado
+            $_SESSION['error'] = "No existe una cuenta con este correo electrónico.";
             header("Location: ../html/login.php");
             exit();
         }

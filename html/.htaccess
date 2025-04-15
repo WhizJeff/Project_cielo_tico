@@ -1,0 +1,22 @@
+DirectoryIndex index.php
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /cielotico/html/
+    
+    # Redirigir index.html a index.php
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index\.html [NC]
+    RewriteRule ^ index.php [R=301,L]
+    
+    # Si el archivo solicitado no existe, redirigir a index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [L]
+</IfModule>
+
+# Prevenir acceso a .htaccess
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files> 

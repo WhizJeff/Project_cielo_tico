@@ -14,8 +14,8 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css" />
-    <link rel="preload" href="img/slider1.jpg" as="image" />
-    <link rel="preload" href="img/slider2.jpg" as="image" />
+    <link rel="preload" href="../img/slider1.jpg" as="image" />
+    <link rel="preload" href="../img/slider2.jpg" as="image" />
     <style>
         .user-menu {
             position: relative;
@@ -89,22 +89,6 @@ session_start();
         .user-info i {
             margin-right: 8px;
         }
-        .welcome-text {
-            margin-left: 8px;
-            color: white;
-        }
-        .fa-bars {
-            font-size: 1.2rem;
-        }
-        @media (max-width: 768px) {
-            .welcome-text {
-                display: none;
-            }
-            .user-menu-content {
-                width: 100%;
-                position: relative;
-            }
-        }
     </style>
 </head>
 <body>
@@ -122,10 +106,10 @@ session_start();
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.php">Inicio</a></li>
-                    <li><a href="acerca.html">Acerca de</a></li>
+                    <li><a href="acerca.php">Acerca de</a></li>
                     <li><a href="servicios.html">Servicios</a></li>
                     <li><a href="ubicacion.html">Ubicación</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="contacto.php">Contacto</a></li>
                     <?php if(isset($_SESSION['user_id'])): ?>
                         <li class="user-menu">
                             <button class="user-menu-button" aria-label="Menú de usuario">
@@ -184,6 +168,107 @@ session_start();
                     <h2>Monteverde</h2>
                     <p>Bosque nuboso místico con una biodiversidad única en el mundo</p>
                 </div>
+            </div>
+        </section>
+
+        <section id="destacados" aria-label="Experiencias Destacadas">
+            <h2>Experiencias Destacadas</h2>
+            <div class="experiencias-grid">
+                <div class="experiencia">
+                    <i class="fas fa-mountain"></i>
+                    <h3>Aventuras en la Montaña</h3>
+                    <p>Explora los senderos más hermosos de Costa Rica</p>
+                </div>
+                <div class="experiencia">
+                    <i class="fas fa-water"></i>
+                    <h3>Playas Paradisíacas</h3>
+                    <p>Disfruta de las mejores playas del país</p>
+                </div>
+                <div class="experiencia">
+                    <i class="fas fa-tree"></i>
+                    <h3>Ecoturismo</h3>
+                    <p>Conecta con la naturaleza en su estado más puro</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonios" aria-label="Testimonios de clientes">
+            <h2>Reseñas</h2>
+            <div class="testimonios-grid">
+                <blockquote>
+                    <p>"Una experiencia inolvidable. Cielo Tico nos permitió descubrir la verdadera esencia de Costa Rica."</p>
+                    <footer>
+                        <span class="nombre">María Solís</span>
+                        <span class="usuario">@mariasol</span>
+                    </footer>
+                </blockquote>
+                <blockquote>
+                    <p>"El servicio fue excepcional. Cada detalle estaba pensado para nuestra comodidad."</p>
+                    <footer>
+                        <span class="nombre">Juan Pérez</span>
+                        <span class="usuario">@juanperez</span>
+                    </footer>
+                </blockquote>
+                <blockquote>
+                    <p>"La mejor manera de explorar Costa Rica. ¡Volveremos pronto!"</p>
+                    <footer>
+                        <span class="nombre">Ana Rodríguez</span>
+                        <span class="usuario">@anarod</span>
+                    </footer>
+                </blockquote>
+            </div>
+        </section>
+
+        <section id="buses" aria-label="Nuestra flota de buses">
+            <h2>Nuestra Flota de Buses</h2>
+            <div class="buses-grid">
+                <div class="bus-card">
+                    <img src="../img/buses/bus1.jpg" alt="Bus de lujo Cielo Tico" loading="lazy">
+                    <div class="bus-info">
+                        <h3>Bus de Lujo</h3>
+                        <p>Nuestro bus de lujo ofrece la máxima comodidad para tus viajes, con asientos reclinables y entretenimiento a bordo.</p>
+                        <ul class="bus-features">
+                            <li><i class="fas fa-check"></i> Asientos reclinables</li>
+                            <li><i class="fas fa-check"></i> Aire acondicionado</li>
+                            <li><i class="fas fa-check"></i> WiFi a bordo</li>
+                            <li><i class="fas fa-check"></i> Pantallas de entretenimiento</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bus-card">
+                    <img src="../img/buses/bus2.jpg" alt="Bus ejecutivo Cielo Tico" loading="lazy">
+                    <div class="bus-info">
+                        <h3>Bus Ejecutivo</h3>
+                        <p>Ideal para grupos medianos, combina confort y eficiencia para tus excursiones.</p>
+                        <ul class="bus-features">
+                            <li><i class="fas fa-check"></i> Espacios amplios</li>
+                            <li><i class="fas fa-check"></i> Aire acondicionado</li>
+                            <li><i class="fas fa-check"></i> Almacenamiento extra</li>
+                            <li><i class="fas fa-check"></i> Asientos ergonómicos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bus-card">
+                    <img src="../img/buses/bus3.jpg" alt="Bus turístico Cielo Tico" loading="lazy">
+                    <div class="bus-info">
+                        <h3>Bus Turístico</h3>
+                        <p>Diseñado para la aventura, con ventanas panorámicas para disfrutar de los paisajes.</p>
+                        <ul class="bus-features">
+                            <li><i class="fas fa-check"></i> Ventanas panorámicas</li>
+                            <li><i class="fas fa-check"></i> Aire acondicionado</li>
+                            <li><i class="fas fa-check"></i> Sistema de audio</li>
+                            <li><i class="fas fa-check"></i> Espacios para equipaje</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" aria-label="Llamada a la acción">
+            <div class="cta-content">
+                <h2>¿Listo para tu próxima aventura?</h2>
+                <p>Descubre los rincones más hermosos de Costa Rica con nosotros</p>
+                <a href="servicios.html" class="btn-primary">Explora nuestros tours</a>
             </div>
         </section>
     </main>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,13 +16,87 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="../js/script.js" defer></script>
+    <style>
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+        .user-menu-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #FF7F50;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 4px;
+            top: 100%;
+            margin-top: 5px;
+        }
+        .user-menu-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .user-menu-button:hover {
+            color: #FF7F50;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .user-menu.active .user-menu-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .user-menu-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .user-menu-content a:hover {
+            background-color: #FF6B3D;
+        }
+        .user-info {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .user-info i {
+            margin-right: 8px;
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <div class="header-content">
             <div class="logo-container">
-                <a href="index.html">
+                <a href="index.php">
                     <img src="../img/logo.png" alt="Cielo Tico Logo" class="logo">
                     <h1>Cielo Tico</h1>
                 </a>
@@ -29,13 +106,31 @@
             </button>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="acerca.html">Acerca de</a></li>
-                    <li><a href="servicios.html">Servicios</a></li>
-                    <li><a href="ubicacion.html">Ubicación</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
-                    <li><a href="registro.html" class="btn-register">Registro</a></li>
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="acerca.php">Acerca de</a></li>
+                    <li><a href="servicios.php">Servicios</a></li>
+                    <li><a href="ubicacion.php">Ubicación</a></li>
+                    <li><a href="contacto.php">Contacto</a></li>
+                    <?php if(isset($_SESSION['user_id'])): ?>
+                        <li class="user-menu">
+                            <button class="user-menu-button" aria-label="Menú de usuario">
+                                <i class="fas fa-user"></i>
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <div class="user-menu-content">
+                                <div class="user-info">
+                                    <i class="fas fa-user-circle"></i>
+                                    <?php echo htmlspecialchars($_SESSION['user_name']); ?>
+                                </div>
+                                <a href="perfil.php"><i class="fas fa-user"></i> Mi Perfil</a>
+                                <a href="mis-reservas.php"><i class="fas fa-calendar-alt"></i> Mis Reservas</a>
+                                <a href="../php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                            </div>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
+                        <li><a href="registro.php" class="btn-register">Registro</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
@@ -57,7 +152,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 20 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye almuerzo</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
 
@@ -72,7 +167,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 15 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
 
@@ -87,7 +182,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 12 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
 
@@ -102,7 +197,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 15 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye almuerzo</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
 
@@ -117,7 +212,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 15 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
 
@@ -132,7 +227,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 12 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
 
@@ -147,7 +242,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 15 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye almuerzo</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
 
@@ -162,7 +257,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 10 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
 
@@ -177,7 +272,7 @@
                                 <li><i class="fas fa-users"></i> Máximo: 20 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye almuerzo</li>
                             </ul>
-                            <a href="contacto.html" class="btn-primary">Reservar Tour</a>
+                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
                         </div>
                     </div>
                 </div>
@@ -223,7 +318,7 @@
                     </div>
                 </div>
                 <div class="modal-actions">
-                    <a href="contacto.html" class="btn-reserve">Reservar Tour</a>
+                    <a href="contacto.php" class="btn-reserve">Reservar Tour</a>
                     <div class="tour-rating">
                         <div class="stars">
                             <i class="fas fa-star"></i>
@@ -253,6 +348,7 @@
             <p>&copy; 2025 Cielo Tico. Todos los derechos reservados.</p>
         </div>
     </footer>
-</body>
 
+    <script src="../js/main.js"></script>
+</body>
 </html> 
