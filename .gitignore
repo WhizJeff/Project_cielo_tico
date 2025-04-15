@@ -46,4 +46,12 @@ build/
 
 # Archivos de logs
 *.log
-logs/ 
+logs/
+
+# Archivos de backup temporales
+*.bak
+*.tmp
+
+# Solo incluir el backup más reciente de la base de datos
+sql/backups/*
+!sql/backups/database_backup.sql 
