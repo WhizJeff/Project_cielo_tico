@@ -13,10 +13,30 @@ function syncDatabase() {
         
         echo "Base de datos sincronizada correctamente.\n";
         
+        // Determinar la ubicación de mysqldump
+        $mysqldump = 'mysqldump';
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // En Windows, buscar en las ubicaciones comunes de XAMPP
+            $possiblePaths = [
+                'C:\\xampp\\mysql\\bin\\mysqldump.exe',
+                'D:\\xampp\\mysql\\bin\\mysqldump.exe',
+                'E:\\xampp\\mysql\\bin\\mysqldump.exe',
+                'F:\\xampp\\mysql\\bin\\mysqldump.exe'
+            ];
+            
+            foreach ($possiblePaths as $path) {
+                if (file_exists($path)) {
+                    $mysqldump = $path;
+                    break;
+                }
+            }
+        }
+        
         // Exportar la base de datos actual (backup completo)
         $backupFile = __DIR__ . '/../sql/backup.sql';
         $command = sprintf(
-            'mysqldump -u%s -p%s %s > %s',
+            '"%s" -u%s -p%s %s > "%s"',
+            $mysqldump,
             DB_USER,
             DB_PASS,
             DB_NAME,
@@ -29,7 +49,8 @@ function syncDatabase() {
         // Exportar solo los datos de usuarios y credenciales
         $usersBackupFile = __DIR__ . '/../sql/users_backup.sql';
         $command = sprintf(
-            'mysqldump -u%s -p%s %s usuarios credenciales > %s',
+            '"%s" -u%s -p%s %s usuarios credenciales > "%s"',
+            $mysqldump,
             DB_USER,
             DB_PASS,
             DB_NAME,
