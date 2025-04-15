@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -6,88 +7,128 @@ ini_set('display_errors', 1);
 error_log("Iniciando procesar_registro.php");
 
 // Verificar que el archivo de configuración existe
-if (!file_exists(__DIR__ . '/config/database.php')) {
+if (!file_exists(__DIR__ . '/../config/database.php')) {
     error_log("Error: No se encuentra el archivo de configuración de la base de datos");
-    die(json_encode(['success' => false, 'message' => 'Error de configuración del servidor']));
+    $_SESSION['error'] = 'Error de configuración del servidor';
+    header('Location: ../html/registro.php');
+    exit;
 }
 
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+if (!isset($conn)) {
+    error_log("Error crítico: No hay conexión a la base de datos disponible");
+    $_SESSION['error'] = 'Error de conexión a la base de datos';
+    header('Location: ../html/registro.php');
+    exit;
+}
 
 // Log del método de la petición
 error_log("Método de la petición: " . $_SERVER['REQUEST_METHOD']);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     error_log("Error: Método no permitido - " . $_SERVER['REQUEST_METHOD']);
-    echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+    $_SESSION['error'] = 'Método no permitido';
+    header('Location: ../html/registro.php');
     exit;
 }
 
 try {
-    $raw_data = file_get_contents('php://input');
-    error_log("Datos recibidos: " . $raw_data);
+    // Obtener datos del formulario POST
+    $nombre = trim($_POST['nombre'] ?? '');
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $telefono = trim($_POST['telefono'] ?? '');
+    $password = $_POST['password'] ?? '';
     
-    $data = json_decode($raw_data, true);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
-    }
-    
-    error_log("Datos decodificados: " . print_r($data, true));
+    error_log("Datos recibidos - Nombre: $nombre, Username: $username, Email: $email, Teléfono: $telefono");
 
     // Validar datos
-    if (empty($data['nombre']) || empty($data['email']) || empty($data['telefono']) || empty($data['password'])) {
-        throw new Exception('Todos los campos son requeridos');
+    if (empty($nombre) || empty($username) || empty($email) || empty($telefono) || empty($password)) {
+        $campos_vacios = [];
+        if (empty($nombre)) $campos_vacios[] = 'nombre';
+        if (empty($username)) $campos_vacios[] = 'username';
+        if (empty($email)) $campos_vacios[] = 'email';
+        if (empty($telefono)) $campos_vacios[] = 'telefono';
+        if (empty($password)) $campos_vacios[] = 'password';
+        
+        error_log("Campos vacíos detectados: " . implode(', ', $campos_vacios));
+        throw new Exception('Los siguientes campos son requeridos: ' . implode(', ', $campos_vacios));
     }
 
     // Validar email
-    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        error_log("Email inválido: $email");
         throw new Exception('Email inválido');
     }
 
-    error_log("Intentando conectar a la base de datos...");
-    
-    // Validar que el email no exista
-    $stmt = $conn->prepare("SELECT id FROM usuarios WHERE email = ?");
-    $stmt->execute([$data['email']]);
-    if ($stmt->rowCount() > 0) {
-        throw new Exception('El email ya está registrado');
+    // Validar nombre de usuario
+    if (!preg_match('/^[a-zA-Z0-9_-]{3,20}$/', $username)) {
+        error_log("Nombre de usuario inválido: $username");
+        throw new Exception('El nombre de usuario solo puede contener letras, números, guiones y debe tener entre 3 y 20 caracteres');
     }
 
-    error_log("Email no duplicado, procediendo con el registro");
+    error_log("Intentando verificar duplicados en la base de datos...");
+    
+    // Validar que el email y username no existan
+    $stmt = $conn->prepare("SELECT id, email, username FROM usuarios WHERE email = ? OR username = ?");
+    $stmt->execute([$email, $username]);
+    $existente = $stmt->fetch();
+    
+    if ($existente) {
+        if ($existente['email'] === $email) {
+            error_log("Email duplicado encontrado: $email");
+            throw new Exception('El email ya está registrado');
+        }
+        if ($existente['username'] === $username) {
+            error_log("Nombre de usuario duplicado encontrado: $username");
+            throw new Exception('El nombre de usuario ya está registrado');
+        }
+    }
+
+    error_log("No se encontraron duplicados, procediendo con el registro");
 
     // Hash de la contraseña
-    $password_hash = password_hash($data['password'], PASSWORD_DEFAULT);
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     // Insertar usuario
-    $stmt = $conn->prepare("INSERT INTO usuarios (nombre, email, telefono, password, fecha_registro) VALUES (?, ?, ?, ?, NOW())");
+    $stmt = $conn->prepare("
+        INSERT INTO usuarios (nombre, username, email, telefono, password, fecha_registro) 
+        VALUES (?, ?, ?, ?, ?, NOW())
+    ");
+
+    error_log("Ejecutando inserción en la base de datos...");
+    
     $result = $stmt->execute([
-        $data['nombre'],
-        $data['email'],
-        $data['telefono'],
+        $nombre,
+        $username,
+        $email,
+        $telefono,
         $password_hash
     ]);
 
     if (!$result) {
-        error_log("Error en la inserción: " . print_r($stmt->errorInfo(), true));
-        throw new Exception('Error al insertar en la base de datos');
+        $error = $stmt->errorInfo();
+        error_log("Error en la inserción: " . print_r($error, true));
+        throw new Exception('Error al insertar en la base de datos: ' . $error[2]);
     }
 
-    error_log("Usuario registrado exitosamente");
-
-    echo json_encode([
-        'success' => true,
-        'message' => '¡Registro exitoso! Ya puedes iniciar sesión.'
-    ]);
+    $nuevo_id = $conn->lastInsertId();
+    error_log("Usuario registrado exitosamente con ID: $nuevo_id");
+    
+    $_SESSION['success'] = '¡Registro exitoso! Ya puedes iniciar sesión.';
+    header('Location: ../html/login.php');
+    exit;
 
 } catch (Exception $e) {
     error_log("Error en registro: " . $e->getMessage());
-    echo json_encode([
-        'success' => false,
-        'message' => $e->getMessage()
-    ]);
+    $_SESSION['error'] = $e->getMessage();
+    header('Location: ../html/registro.php');
+    exit;
+} catch (PDOException $e) {
+    error_log("Error de PDO: " . $e->getMessage());
+    $_SESSION['error'] = 'Error en la base de datos. Por favor, intenta nuevamente.';
+    header('Location: ../html/registro.php');
+    exit;
 }
 ?> 

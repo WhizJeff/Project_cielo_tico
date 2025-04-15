@@ -5,15 +5,21 @@ define('DB_USER', 'root'); // Usuario por defecto de MySQL en local
 define('DB_PASS', ''); // Contraseña por defecto en local (vacía)
 define('DB_NAME', 'cielotico_db');
 
-// Función para conectar a la base de datos
-function conectarDB() {
-    $conexion = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+try {
+    $conn = new PDO(
+        "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",
+        DB_USER,
+        DB_PASS
+    );
     
-    if ($conexion->connect_error) {
-        die("Error de conexión: " . $conexion->connect_error);
-    }
+    // Configurar el modo de error de PDO para lanzar excepciones
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    $conexion->set_charset("utf8");
-    return $conexion;
+    // Configurar el modo de obtención por defecto
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    
+} catch(PDOException $e) {
+    error_log("Error de conexión: " . $e->getMessage());
+    die("Error de conexión a la base de datos");
 }
 ?> 

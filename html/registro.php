@@ -63,10 +63,31 @@ session_start();
     <main>
         <section class="registro-section">
             <h2>Crear Cuenta</h2>
+            <?php if(isset($_SESSION['error'])): ?>
+                <div class="alert alert-error">
+                    <?php 
+                    echo htmlspecialchars($_SESSION['error']); 
+                    unset($_SESSION['error']); 
+                    ?>
+                </div>
+            <?php endif; ?>
+            <?php if(isset($_SESSION['success'])): ?>
+                <div class="alert alert-success">
+                    <?php 
+                    echo htmlspecialchars($_SESSION['success']); 
+                    unset($_SESSION['success']); 
+                    ?>
+                </div>
+            <?php endif; ?>
             <form class="form-registro" id="registroForm" action="../php/procesar_registro.php" method="POST">
                 <div class="form-group">
                     <label for="nombre">Nombre Completo</label>
                     <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Nombre de Usuario</label>
+                    <input type="text" id="username" name="username" required>
+                    <small>Este será tu identificador único para iniciar sesión</small>
                 </div>
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>

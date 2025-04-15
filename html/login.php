@@ -138,8 +138,8 @@ session_start();
                 <?php endif; ?>
                 <form id="loginForm" action="../php/login_process.php" method="POST">
                     <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="identifier">Email o Nombre de Usuario</label>
+                        <input type="text" id="identifier" name="identifier" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
