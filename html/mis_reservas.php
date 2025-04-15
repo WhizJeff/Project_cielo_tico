@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 try {
     $stmt = $conn->prepare("
         SELECT r.*, t.nombre as nombre_tour, t.precio 
-        FROM reservas r 
+        FROM reservaciones r 
         JOIN tours t ON r.tour_id = t.id 
         WHERE r.usuario_id = ? 
         ORDER BY r.fecha_reserva DESC

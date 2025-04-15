@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? $pageTitle . ' - ' : ''; ?>Cielo Tico</title>
-    <link rel="icon" type="image/png" href="/cielotico/assets/img/logo.png" />
+    <link rel="icon" type="image/png" href="/cielotico/img/logo.png" />
     <link rel="stylesheet" href="/cielotico/css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
         <div class="header-content">
             <div class="logo-container">
                 <a href="/cielotico/html/index.php">
-                    <img src="/cielotico/assets/img/logo.png" alt="Cielo Tico Logo" class="logo">
+                    <img src="/cielotico/img/logo.png" alt="Cielo Tico Logo" class="logo">
                     <h1>Cielo Tico</h1>
                 </a>
             </div>
