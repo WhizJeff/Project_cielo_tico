@@ -93,8 +93,8 @@ try {
 
     // Insertar usuario
     $stmt = $conn->prepare("
-        INSERT INTO usuarios (nombre, username, email, telefono, password, fecha_registro) 
-        VALUES (?, ?, ?, ?, ?, NOW())
+        INSERT INTO usuarios (nombre, username, email, telefono, password, fecha_registro, rol) 
+        VALUES (?, ?, ?, ?, ?, NOW(), 'usuario')
     ");
 
     error_log("Ejecutando inserción en la base de datos...");
@@ -130,5 +130,4 @@ try {
     $_SESSION['error'] = 'Error en la base de datos. Por favor, intenta nuevamente.';
     header('Location: ../html/registro.php');
     exit;
-}
-?> 
+} 

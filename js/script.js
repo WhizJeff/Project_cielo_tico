@@ -40,28 +40,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Manejo del menú de usuario
-    const userMenuButton = document.querySelector('.user-menu-button');
-    const userMenu = document.querySelector('.user-menu');
+    // Menú de usuario
+    const userToggle = document.querySelector('.user-toggle');
+    const userDropdown = document.querySelector('.user-dropdown');
 
-    if (userMenuButton && userMenu) {
-        userMenuButton.addEventListener('click', function(e) {
+    if (userToggle && userDropdown) {
+        userToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            userMenu.classList.toggle('active');
+            userDropdown.classList.toggle('show');
         });
 
-        // Cerrar el menú cuando se hace clic fuera de él
+        // Cerrar el menú al hacer clic fuera
         document.addEventListener('click', function(e) {
-            if (!userMenu.contains(e.target)) {
-                userMenu.classList.remove('active');
+            if (!userToggle.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('show');
             }
         });
 
-        // Cerrar el menú con la tecla ESC
+        // Cerrar el menú con ESC
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && userMenu.classList.contains('active')) {
-                userMenu.classList.remove('active');
+            if (e.key === 'Escape' && userDropdown.classList.contains('show')) {
+                userDropdown.classList.remove('show');
             }
         });
     }

@@ -22,8 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && password_verify($password, $user['password'])) {
             // Login exitoso
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['nombre'];
+            $_SESSION['nombre'] = $user['nombre'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['rol'] = $user['rol'] ?? 'usuario';
             
             header("Location: ../html/index.php");
             exit();

@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS usuarios (
     password VARCHAR(255) NOT NULL,
     fecha_registro DATETIME NOT NULL,
     activo BOOLEAN DEFAULT TRUE,
+    rol ENUM('admin', 'usuario') NOT NULL DEFAULT 'usuario',
     UNIQUE KEY unique_email (email)
 ); 
