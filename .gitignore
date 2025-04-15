@@ -52,6 +52,5 @@ logs/
 *.bak
 *.tmp
 
-# Solo incluir el backup más reciente de la base de datos
-sql/backups/*
-!sql/backups/database_backup.sql 
+# Incluir todos los backups de la base de datos
+sql/backups/database_backup_*.sql 
