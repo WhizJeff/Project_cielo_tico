@@ -39,6 +39,32 @@ document.addEventListener('DOMContentLoaded', function() {
             closeImagePopup();
         }
     });
+
+    // Manejo del menú de usuario
+    const userMenuButton = document.querySelector('.user-menu-button');
+    const userMenu = document.querySelector('.user-menu');
+
+    if (userMenuButton && userMenu) {
+        userMenuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            userMenu.classList.toggle('active');
+        });
+
+        // Cerrar el menú cuando se hace clic fuera de él
+        document.addEventListener('click', function(e) {
+            if (!userMenu.contains(e.target)) {
+                userMenu.classList.remove('active');
+            }
+        });
+
+        // Cerrar el menú con la tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && userMenu.classList.contains('active')) {
+                userMenu.classList.remove('active');
+            }
+        });
+    }
 });
 
 // Función para abrir el popup de imágenes
