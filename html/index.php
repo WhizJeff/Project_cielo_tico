@@ -116,8 +116,8 @@ session_start();
                 <ul class="nav-menu">
                     <li><a href="index.php">Inicio</a></li>
                     <li><a href="acerca.php">Acerca de</a></li>
-                    <li><a href="servicios.html">Servicios</a></li>
-                    <li><a href="ubicacion.html">Ubicación</a></li>
+                    <li><a href="servicios.php">Servicios</a></li>
+                    <li><a href="ubicacion.php">Ubicación</a></li>
                     <li><a href="contacto.php">Contacto</a></li>
                     <?php if(isset($_SESSION['user_id'])): ?>
                         <li class="user-menu">
