@@ -13,10 +13,10 @@ if (!isset($_SESSION['user_id'])) {
 try {
     $stmt = $conn->prepare("
         SELECT r.*, t.nombre as nombre_tour, t.precio 
-        FROM reservas r 
+        FROM reservaciones r 
         JOIN tours t ON r.tour_id = t.id 
         WHERE r.usuario_id = ? 
-        ORDER BY r.fecha_reserva DESC
+        ORDER BY r.fecha_creacion DESC
     ");
     $stmt->execute([$_SESSION['user_id']]);
     $reservas = $stmt->fetchAll();
@@ -113,8 +113,7 @@ try {
                     <tr>
                         <th>Tour</th>
                         <th>Fecha de Reserva</th>
-                        <th>Fecha del Tour</th>
-                        <th>Cantidad de Personas</th>
+                        <th>Número de Personas</th>
                         <th>Precio Total</th>
                         <th>Estado</th>
                         <th>Acciones</th>
@@ -125,9 +124,8 @@ try {
                         <tr>
                             <td><?php echo htmlspecialchars($reserva['nombre_tour']); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($reserva['fecha_reserva'])); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($reserva['fecha_tour'])); ?></td>
-                            <td><?php echo $reserva['cantidad_personas']; ?></td>
-                            <td>₡<?php echo number_format($reserva['precio'] * $reserva['cantidad_personas'], 2); ?></td>
+                            <td><?php echo $reserva['numero_personas']; ?></td>
+                            <td>₡<?php echo number_format($reserva['precio_total'], 2); ?></td>
                             <td>
                                 <span class="estado-<?php echo strtolower($reserva['estado']); ?>">
                                     <?php echo ucfirst($reserva['estado']); ?>

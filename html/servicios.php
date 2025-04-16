@@ -161,7 +161,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 20 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye almuerzo</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=1" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -176,7 +180,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 15 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=2" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -191,7 +199,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 12 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=3" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -206,7 +218,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 15 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye almuerzo</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=4" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -221,7 +237,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 15 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=5" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -236,7 +256,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 12 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=6" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -251,7 +275,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 15 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye almuerzo</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=7" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -266,7 +294,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 10 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye todas las comidas</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=8" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -281,7 +313,11 @@ session_start();
                                 <li><i class="fas fa-users"></i> Máximo: 20 personas</li>
                                 <li><i class="fas fa-utensils"></i> Incluye almuerzo</li>
                             </ul>
-                            <a href="contacto.php" class="btn-primary">Reservar Tour</a>
+                            <?php if(isset($_SESSION['user_id'])): ?>
+                                <a href="reservar_tour.php?tour_id=9" class="btn-primary">Reservar Tour</a>
+                            <?php else: ?>
+                                <a href="login.php" class="btn-primary">Iniciar sesión para reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -327,7 +363,11 @@ session_start();
                     </div>
                 </div>
                 <div class="modal-actions">
-                    <a href="contacto.php" class="btn-reserve">Reservar Tour</a>
+                    <?php if(isset($_SESSION['user_id'])): ?>
+                        <a href="#" class="btn-reserve" id="modalReserveButton">Reservar Tour</a>
+                    <?php else: ?>
+                        <a href="login.php" class="btn-reserve">Iniciar sesión para reservar</a>
+                    <?php endif; ?>
                     <div class="tour-rating">
                         <div class="stars">
                             <i class="fas fa-star"></i>
@@ -363,7 +403,43 @@ session_start();
     document.addEventListener('DOMContentLoaded', function() {
         const userToggle = document.querySelector('.user-toggle');
         const userMenu = document.querySelector('.user-menu');
+        let currentTourId = null;
 
+        // Función para abrir el popup con la información del tour
+        function openImagePopup(src, title, description) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalReserveButton = document.getElementById('modalReserveButton');
+
+            modalImg.src = src;
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+
+            // Asignar el ID del tour basado en el título
+            const tourIds = {
+                'Volcán Arenal': '1',
+                'Guanacaste': '2',
+                'Cerro Chirripó': '3',
+                'Manuel Antonio': '4',
+                'Monteverde': '5',
+                'Puerto Viejo': '6',
+                'Río Celeste': '7',
+                'Cahuita': '8',
+                'San José': '9'
+            };
+            
+            currentTourId = tourIds[title];
+            
+            if (modalReserveButton) {
+                modalReserveButton.href = `reservar_tour.php?tour_id=${currentTourId}`;
+            }
+
+            modal.style.display = "block";
+        }
+
+        // Resto del código existente para el menú de usuario...
         if (userToggle && userMenu) {
             userToggle.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -371,20 +447,21 @@ session_start();
                 userMenu.classList.toggle('active');
             });
 
-            // Cerrar el menú cuando se hace clic fuera de él
             document.addEventListener('click', function(e) {
                 if (!userMenu.contains(e.target)) {
                     userMenu.classList.remove('active');
                 }
             });
 
-            // Cerrar el menú con la tecla ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && userMenu.classList.contains('active')) {
                     userMenu.classList.remove('active');
                 }
             });
         }
+
+        // Asignar la función openImagePopup al objeto window para que esté disponible globalmente
+        window.openImagePopup = openImagePopup;
     });
     </script>
 </body>
