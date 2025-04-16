@@ -10,7 +10,7 @@ session_start();
     <meta name="author" content="Cielo Tico">
     <title>Ubicación - Cielo Tico</title>
     <link rel="icon" type="image/png" href="../img/logo.png" />
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="/cielotico/css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="../js/script.js" defer></script>

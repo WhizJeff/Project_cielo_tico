@@ -1,0 +1,12 @@
+Options -Indexes
+Order Allow,Deny
+Allow from all
+
+<Files "*.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# Redirigir todos los errores a una página personalizada
+ErrorDocument 403 /cielotico/html/login.php
+ErrorDocument 404 /cielotico/html/404.php 
