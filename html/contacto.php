@@ -171,9 +171,26 @@ session_start();
                 </div>
                 <div class="formulario-contacto">
                     <h3>Envíanos un Mensaje</h3>
-                    <form action="../php/procesar_contacto.php" method="POST">
+                    <?php if (isset($_SESSION['error'])): ?>
+                        <div class="alert alert-error">
+                            <?php 
+                            echo $_SESSION['error'];
+                            unset($_SESSION['error']);
+                            ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (isset($_SESSION['success'])): ?>
+                        <div class="alert alert-success">
+                            <?php 
+                            echo $_SESSION['success'];
+                            unset($_SESSION['success']);
+                            ?>
+                        </div>
+                    <?php endif; ?>
+                    <form action="/cielotico/php/procesar_contacto.php" method="POST">
                         <div class="form-group">
-                            <label for="nombre">Nombre Completo</label>
+                            <label for="nombre">Nombre</label>
                             <input type="text" id="nombre" name="nombre" required>
                         </div>
                         <div class="form-group">
@@ -185,18 +202,9 @@ session_start();
                             <input type="tel" id="telefono" name="telefono">
                         </div>
                         <div class="form-group">
-                            <label for="asunto">Asunto</label>
-                            <select id="asunto" name="asunto" required>
-                                <option value="">Seleccione un asunto</option>
-                                <option value="reserva">Reserva de Tour</option>
-                                <option value="informacion">Solicitud de Información</option>
-                                <option value="sugerencia">Sugerencia</option>
-                                <option value="otro">Otro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="mensaje">Mensaje</label>
-                            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                            <textarea id="mensaje" name="mensaje" rows="5" required maxlength="150"></textarea>
+                            <small>Máximo 150 caracteres</small>
                         </div>
                         <button type="submit" class="btn-primary">Enviar Mensaje</button>
                     </form>
