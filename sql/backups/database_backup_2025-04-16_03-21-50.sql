@@ -16,6 +16,42 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `buses`
+--
+
+DROP TABLE IF EXISTS `buses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `buses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(10) NOT NULL,
+  `tipo_bus_id` int(11) NOT NULL,
+  `placa` varchar(20) NOT NULL,
+  `estado` enum('activo','mantenimiento','inactivo') DEFAULT 'activo',
+  `ano_fabricacion` year(4) DEFAULT NULL,
+  `ultima_revision` date DEFAULT NULL,
+  `proxima_revision` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo` (`codigo`),
+  UNIQUE KEY `placa` (`placa`),
+  KEY `tipo_bus_id` (`tipo_bus_id`),
+  CONSTRAINT `buses_ibfk_1` FOREIGN KEY (`tipo_bus_id`) REFERENCES `tipos_bus` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `buses`
+--
+
+LOCK TABLES `buses` WRITE;
+/*!40000 ALTER TABLE `buses` DISABLE KEYS */;
+INSERT INTO `buses` VALUES (1,'LUXBUS-001',1,'LUX-001','activo',2023,NULL,NULL,'2025-04-16 01:18:44','2025-04-16 01:18:44'),(2,'LUXBUS-002',1,'LUX-002','activo',2023,NULL,NULL,'2025-04-16 01:18:44','2025-04-16 01:18:44'),(3,'LUXBUS-003',1,'LUX-003','activo',2023,NULL,NULL,'2025-04-16 01:18:44','2025-04-16 01:18:44'),(4,'EXEBUS-001',2,'EXE-001','activo',2022,NULL,NULL,'2025-04-16 01:18:45','2025-04-16 01:18:45'),(5,'EXEBUS-002',2,'EXE-002','activo',2022,NULL,NULL,'2025-04-16 01:18:45','2025-04-16 01:18:45'),(6,'EXEBUS-003',2,'EXE-003','activo',2022,NULL,NULL,'2025-04-16 01:18:45','2025-04-16 01:18:45'),(7,'TURBUS-001',3,'TUR-001','activo',2021,NULL,NULL,'2025-04-16 01:18:45','2025-04-16 01:18:45'),(8,'TURBUS-002',3,'TUR-002','activo',2021,NULL,NULL,'2025-04-16 01:18:45','2025-04-16 01:18:45'),(9,'TURBUS-003',3,'TUR-003','activo',2021,NULL,NULL,'2025-04-16 01:18:45','2025-04-16 01:18:45');
+/*!40000 ALTER TABLE `buses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `configuracion`
 --
 
@@ -59,7 +95,7 @@ CREATE TABLE `contactos` (
   `estado` enum('nuevo','leido','respondido') DEFAULT 'nuevo',
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,6 +104,7 @@ CREATE TABLE `contactos` (
 
 LOCK TABLES `contactos` WRITE;
 /*!40000 ALTER TABLE `contactos` DISABLE KEYS */;
+INSERT INTO `contactos` VALUES (1,'Jeff Amador','chesterab20@gmail.com','+506 7205-5101','aaa','nuevo','2025-04-16 01:10:58');
 /*!40000 ALTER TABLE `contactos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,6 +237,34 @@ LOCK TABLES `testimonios` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tipos_bus`
+--
+
+DROP TABLE IF EXISTS `tipos_bus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipos_bus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `capacidad_pasajeros` int(11) NOT NULL,
+  `caracteristicas` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipos_bus`
+--
+
+LOCK TABLES `tipos_bus` WRITE;
+/*!40000 ALTER TABLE `tipos_bus` DISABLE KEYS */;
+INSERT INTO `tipos_bus` VALUES (1,'Lujo','Bus de lujo con máximo confort y amenidades',30,'Asientos reclinables de cuero, WiFi, TV, Baño, Aire acondicionado, Sistema de entretenimiento','2025-04-16 01:18:44'),(2,'Ejecutivo','Bus ejecutivo con comodidades estándar plus',35,'Asientos reclinables, Aire acondicionado, Baño, Sistema de audio','2025-04-16 01:18:44'),(3,'Turístico','Bus turístico estándar',40,'Asientos estándar, Aire acondicionado, Sistema de audio básico','2025-04-16 01:18:44');
+/*!40000 ALTER TABLE `tipos_bus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tours`
 --
 
@@ -273,4 +338,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-15 17:28:11
+-- Dump completed on 2025-04-15 19:21:51
