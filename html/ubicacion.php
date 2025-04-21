@@ -10,187 +10,287 @@ session_start();
     <meta name="author" content="Cielo Tico">
     <title>Ubicación - Cielo Tico</title>
     <link rel="icon" type="image/png" href="../img/logo.png" />
-    <link rel="stylesheet" href="/cielotico/css/estilos.css">
+    <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="../js/script.js" defer></script>
     <style>
-        .user-menu {
-            position: relative;
-            display: inline-block;
+        .location-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
         }
-        .user-toggle {
-            background: none;
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 3rem;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
             border: none;
-            color: white;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .info-section {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
             cursor: pointer;
-            padding: 1rem;
+        }
+
+        .info-section:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-title {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .info-title i {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .info-title h2 {
+            font-size: 1.25rem;
+            color: #333333;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .info-content {
+            color: #666666;
+        }
+
+        .info-content p {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .info-content a {
+            color: #666666;
             text-decoration: none;
-            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-left: 12px;
         }
-        .user-toggle:hover {
-            color: #FF7F50;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-        .user-dropdown {
-            display: none;
+
+        .info-content a::before {
+            content: "•";
             position: absolute;
-            right: 0;
-            background-color: #FF7F50;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1000;
-            border-radius: 4px;
-            top: 100%;
-            margin-top: 5px;
+            left: 0;
+            color: var(--color-primary);
+            transition: color 0.3s ease;
+        }
+
+        .info-content a:hover, 
+        .transport-list li:hover {
+            color: inherit;
+        }
+
+        .info-content a:hover::before,
+        .transport-list li:hover::before {
+            color: var(--color-primary);
+        }
+
+        .info-content a i {
+            color: #FF7F50;
+            width: 16px;
+            font-size: 1rem;
+        }
+
+        .transport-list {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
-        .user-menu.active .user-dropdown {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .user-dropdown a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.3s;
-            font-family: 'Montserrat', sans-serif;
-        }
-        .user-dropdown a:hover {
-            background-color: #FF6B3D;
-        }
-        .user-dropdown li:first-child a {
-            border-radius: 4px 4px 0 0;
-        }
-        .user-dropdown li:last-child a {
-            border-radius: 0 0 4px 4px;
-        }
-        .user-info {
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            font-family: 'Montserrat', sans-serif;
+
+        .transport-list li {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background-color: rgba(0, 0, 0, 0.1);
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            color: #666666;
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 12px;
+            transition: color 0.3s ease;
         }
-        .user-info i {
-            margin-right: 8px;
+
+        .transport-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            transition: color 0.3s ease;
+        }
+
+        .transport-list li i {
+            color: #FF7F50;
+            width: 16px;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 992px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-section {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <div class="logo-container">
-                <a href="index.php">
-                    <img src="../img/logo.png" alt="Cielo Tico Logo" class="logo">
-                    <h1>Cielo Tico</h1>
-                </a>
+    <?php include '../templates/header.php'; ?>
+
+    <div class="location-container">
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.8457157262584!2d-84.09099772414567!3d9.936499674057693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e342c50d15c5%3A0xe6746a6a9f11b882!2sCentro%20Comercial%20Plaza%20del%20Sol!5e0!3m2!1ses!2scr!4v1709351264099!5m2!1ses!2scr" 
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-section">
+                <div class="info-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h2>Dirección</h2>
+                </div>
+                <div class="info-content">
+                    <p>Centro Comercial Plaza del Sol</p>
+                    <p>Local #15, Segundo Piso</p>
+                    <p>Curridabat, San José</p>
+                    <p>Costa Rica</p>
+                </div>
             </div>
-            <button class="menu-toggle" aria-label="Menú">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.php">Inicio</a></li>
-                    <li><a href="acerca.php">Acerca de</a></li>
-                    <li><a href="servicios.php">Servicios</a></li>
-                    <li><a href="ubicacion.php">Ubicación</a></li>
-                    <li><a href="contacto.php">Contacto</a></li>
-                    <?php if(isset($_SESSION['user_id'])): ?>
-                        <li class="user-menu">
-                            <a href="#" class="user-toggle">
-                                <i class="fas fa-user"></i>
-                                <?php echo htmlspecialchars($_SESSION['nombre']); ?>
-                                <i class="fas fa-chevron-down"></i>
-                            </a>
-                            <ul class="user-dropdown">
-                                <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
-                                    <li><a href="/cielotico/html/admin/"><i class="fas fa-cog"></i> Administrator</a></li>
-                                <?php endif; ?>
-                                <li><a href="/cielotico/html/perfil.php"><i class="fas fa-user-circle"></i> Mi Perfil</a></li>
-                                <li><a href="/cielotico/html/mis_reservas.php"><i class="fas fa-calendar-check"></i> Mis Reservas</a></li>
-                                <li><a href="/cielotico/php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
-                            </ul>
+
+            <div class="info-section">
+                <div class="info-title">
+                    <i class="fas fa-clock"></i>
+                    <h2>Horarios</h2>
+                </div>
+                <div class="info-content">
+                    <p><strong>Horario de Atención:</strong></p>
+                    <p>Todos los días: 6:00 AM - 6:00 PM</p>
+                    <p><strong>Salidas de Tours:</strong></p>
+                    <p>Todos los días: 8:00 AM y 2:00 PM</p>
+                    <p><small>(según disponibilidad)</small></p>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-title">
+                    <i class="fas fa-phone-alt"></i>
+                    <h2>Contacto</h2>
+                </div>
+                <div class="info-content">
+                    <a href="tel:+50622222222">
+                        +506 2222-2222
+                    </a>
+                    <a href="tel:+50688888888">
+                        +506 8888-8888
+                    </a>
+                    <a href="mailto:info@cielotico.com">
+                        info@cielotico.com
+                    </a>
+                    <a href="mailto:reservas@cielotico.com">
+                        reservas@cielotico.com
+                    </a>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-title">
+                    <i class="fas fa-bus"></i>
+                    <h2>Transporte Público</h2>
+                </div>
+                <div class="info-content">
+                    <ul class="transport-list">
+                        <li>
+                            Buses de Curridabat - San José cada 15 minutos
                         </li>
-                    <?php else: ?>
-                        <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
-                        <li><a href="registro.php" class="btn-register">Registro</a></li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section id="ubicacion">
-            <div class="ubicacion-container">
-                <div class="mapa">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.952318730781!2d-84.0918358!3d9.935563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwNTYnMDguMCJOIDg0wrAwNSczMC42Ilc!5e0!3m2!1ses!2scr!4v1635789012345!5m2!1ses!2scr" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-                <div class="info-contacto">
-                    <h3>Información de Contacto</h3>
-                    <div class="contacto-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>San José, Costa Rica<br>Avenida Central, Calle 5</p>
-                    </div>
-                    <div class="contacto-item">
-                        <i class="fas fa-phone"></i>
-                        <p>+506 2222-2222<br>+506 8888-8888</p>
-                    </div>
-                    <div class="contacto-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>info@cielotico.com<br>reservas@cielotico.com</p>
-                    </div>
-                    <div class="contacto-item">
-                        <i class="fas fa-clock"></i>
-                        <p>Lunes a Viernes: 8:00 AM - 6:00 PM<br>Sábados: 8:00 AM - 2:00 PM</p>
-                    </div>
-                    <div class="contacto-item">
-                        <i class="fas fa-bus"></i>
-                        <p>Transporte Público:<br>
-                           - Buses de San José cada 15 minutos<br>
-                           - Parada principal a 100 metros</p>
-                    </div>
+                        <li>
+                            A 50 metros de la parada principal de Curridabat
+                        </li>
+                        <li>
+                            Servicio de taxis disponible 24/7
+                        </li>
+                        <li>
+                            Parqueo gratuito disponible
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <footer role="contentinfo">
-        <div class="footer-content">
-            <div class="redes-sociales">
-                <h3>Síguenos en redes sociales:</h3>
-                <ul>
-                    <li><a href="https://instagram.com/cieloticotours" aria-label="Síguenos en Instagram"><i class="fab fa-instagram"></i></a></li>
-                    <li><a href="https://facebook.com/cieloticocr" aria-label="Síguenos en Facebook"><i class="fab fa-facebook"></i></a></li>
-                    <li><a href="https://tiktok.com/@vivecielotico" aria-label="Síguenos en TikTok"><i class="fab fa-tiktok"></i></a></li>
-                    <li><a href="https://youtube.com/CieloTicoAventuras" aria-label="Síguenos en YouTube"><i class="fab fa-youtube"></i></a></li>
-                </ul>
+            <div class="info-section">
+                <div class="info-title">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>Información Adicional</h2>
+                </div>
+                <div class="info-content">
+                    <p>Contamos con sala de espera climatizada y café gratuito para nuestros clientes.</p>
+                    <p>WiFi gratuito disponible en nuestras instalaciones.</p>
+                    <p>Personal bilingüe para atender todas sus consultas.</p>
+                </div>
             </div>
-            <p>&copy; 2025 Cielo Tico. Todos los derechos reservados.</p>
+
+            <div class="info-section">
+                <div class="info-title">
+                    <i class="fas fa-map"></i>
+                    <h2>Puntos de Referencia</h2>
+                </div>
+                <div class="info-content">
+                    <ul class="transport-list">
+                        <li>
+                            Frente al Banco Nacional
+                        </li>
+                        <li>
+                            Dentro del Centro Comercial Plaza del Sol
+                        </li>
+                        <li>
+                            A 100 metros de la Municipalidad
+                        </li>
+                        <li>
+                            Cerca del Centro Médico de Curridabat
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <?php include '../templates/footer.php'; ?>
 
     <script src="../js/main.js"></script>
     <script>
