@@ -171,7 +171,7 @@ session_start();
 
                     <!-- Tour Guanacaste -->
                     <div class="tour-card">
-                        <img src="../img/slider2.jpg" alt="Playas de Guanacaste" class="tour-image" onclick="openImagePopup(this.src, 'Playas de Guanacaste', 'Playas doradas, puestas de sol espectaculares y cultura guanacasteca.')">
+                        <img src="../img/slider2.jpg" alt="Playas de Guanacaste" class="tour-image" onclick="openImagePopup(this.src, 'Guanacaste', 'Playas doradas, puestas de sol espectaculares y cultura guanacasteca.')">
                         <div class="tour-info">
                             <h3>Guanacaste</h3>
                             <p>Playas doradas, puestas de sol espectaculares y cultura guanacasteca.</p>

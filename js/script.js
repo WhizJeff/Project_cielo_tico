@@ -106,6 +106,26 @@ function openImagePopup(imageSrc, title, description) {
     const modalDuration = document.getElementById('modalDuration');
     const modalGroupSize = document.getElementById('modalGroupSize');
     const modalMeals = document.getElementById('modalMeals');
+    const modalReserveButton = document.getElementById('modalReserveButton');
+
+    // Configurar el botón de reserva con el ID del tour correcto
+    if (modalReserveButton) {
+        let tourId;
+        switch(title) {
+            case 'Volcán Arenal': tourId = 1; break;
+            case 'Guanacaste': tourId = 2; break;
+            case 'Playas de Guanacaste': tourId = 2; break;
+            case 'Cerro Chirripó': tourId = 3; break;
+            case 'Manuel Antonio': tourId = 4; break;
+            case 'Monteverde': tourId = 5; break;
+            case 'Puerto Viejo': tourId = 6; break;
+            case 'Río Celeste': tourId = 7; break;
+            case 'Cahuita': tourId = 8; break;
+            case 'San José': tourId = 9; break;
+            default: tourId = 1;
+        }
+        modalReserveButton.href = `reservar_tour.php?tour_id=${tourId}`;
+    }
 
     // Configurar la información del tour
     modalImg.src = imageSrc;
