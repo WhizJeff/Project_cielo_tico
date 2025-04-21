@@ -295,25 +295,27 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             background-color: rgba(0, 0, 0, 0.7);
             z-index: 1000;
-            overflow: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 1rem;
+            overflow-y: auto;
         }
         .modal-content {
             background: white;
-            width: 95%;
-            max-width: 1000px;
+            width: 98%;
+            max-width: 1400px;
             border-radius: 12px;
             box-shadow: var(--shadow-lg);
             padding: 2rem;
             position: relative;
-            margin: auto;
+            margin: 0.5rem auto;
             animation: fadeIn 0.3s ease;
+            height: auto;
+            max-height: 98vh;
         }
         @keyframes fadeIn {
             from {
@@ -327,12 +329,12 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
         }
         .modal-content h2 {
             color: var(--color-primary);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-family: var(--font-heading);
             position: relative;
-            padding-bottom: 1rem;
+            padding-bottom: 0.8rem;
         }
         .modal-content h2::after {
             content: '';
@@ -346,88 +348,90 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
             border-radius: 2px;
         }
         .terminos-contenido {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
             padding: 0 1rem;
-            margin-bottom: 2rem;
         }
-        .terminos-contenido h3 {
+        .seccion-terminos {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+        .seccion-terminos h3 {
             color: var(--color-primary);
-            margin: 1.5rem 0 1rem;
+            margin-bottom: 1.2rem;
             font-size: 1.4rem;
             font-family: var(--font-heading);
             border-bottom: 2px solid var(--color-secondary);
             padding-bottom: 0.5rem;
         }
-        .terminos-contenido ul {
+        .seccion-terminos ul {
             list-style: none;
             padding: 0;
-            margin: 0 0 2rem;
+            margin: 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
         }
-        .terminos-contenido li {
-            margin-bottom: 0.75rem;
+        .seccion-terminos li {
             display: flex;
             align-items: center;
             color: var(--color-text);
-            background-color: var(--background-color);
-            padding: 0.75rem;
+            background: white;
+            padding: 0.8rem;
             border-radius: 8px;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
-        .terminos-contenido li:hover {
-            background-color: var(--color-secondary);
-            color: var(--color-light);
+        .seccion-terminos li:hover {
             transform: translateX(5px);
+            background: var(--color-secondary);
+            color: white;
         }
-        .terminos-contenido li i {
-            margin-right: 0.75rem;
+        .seccion-terminos li i {
+            margin-right: 0.8rem;
             color: var(--color-primary);
             width: 20px;
             text-align: center;
             font-size: 1.1rem;
         }
-        .terminos-contenido li:hover i {
-            color: var(--color-light);
+        .seccion-terminos li:hover i {
+            color: white;
         }
         .terminos-acciones {
             background-color: var(--background-color);
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 8px;
-            margin-top: 2rem;
+            margin-top: 1rem;
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
         }
         .checkbox-container {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
             cursor: pointer;
             user-select: none;
             color: var(--color-text);
             font-weight: 500;
-            padding: 0.5rem;
+            padding: 0.8rem;
             border-radius: 6px;
             transition: background-color 0.3s ease;
+            font-size: 1.1rem;
         }
         .checkbox-container:hover {
             background-color: var(--color-secondary);
-            color: var(--color-light);
-        }
-        .checkbox-container input {
-            width: 18px;
-            height: 18px;
+            color: white;
         }
         .botones {
             display: flex;
             gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 1rem;
         }
         .btn-cancelar,
         .btn-confirmar {
-            padding: 0.75rem 2rem;
+            padding: 0.8rem 2rem;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
@@ -446,52 +450,45 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
         .btn-confirmar {
             border: none;
             background: var(--gradient-primary);
-            color: var(--color-light);
+            color: white;
         }
         .btn-confirmar:disabled {
-            background: var(--background-color);
+            background: #ccc;
             cursor: not-allowed;
             opacity: 0.7;
         }
         .btn-cancelar:hover {
             background: var(--color-secondary);
-            color: var(--color-light);
+            color: white;
             transform: translateY(-2px);
         }
         .btn-confirmar:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
-        @media (max-width: 992px) {
-            .tour-info {
-                flex-direction: column;
-            }
-            .tour-image {
-                width: 100%;
-                height: auto;
-            }
-            .bus-options-grid {
+        @media (max-width: 1200px) {
+            .seccion-terminos ul {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
         @media (max-width: 768px) {
-            .reservation-container {
-                padding: 1rem;
-                margin: 1rem;
-            }
-            .bus-options-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal {
-                padding: 1rem;
-            }
             .modal-content {
-                padding: 1.5rem;
+                padding: 1rem;
+                width: 95%;
             }
-            .terminos-contenido ul {
+            .seccion-terminos {
+                padding: 1rem;
+            }
+            .seccion-terminos ul {
                 grid-template-columns: 1fr;
+            }
+            .terminos-acciones {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
             .botones {
+                width: 100%;
                 flex-direction: column;
             }
             .btn-cancelar,
