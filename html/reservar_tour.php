@@ -109,6 +109,7 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
             margin-right: 0.5rem;
         }
         .form-group {
+            position: relative;
             margin-bottom: 1.5rem;
         }
         .form-group label {
@@ -119,7 +120,45 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
             font-size: 1.1rem;
             font-family: var(--font-body);
         }
-        .form-group input[type="date"],
+        /* Contenedor para el campo de fecha */
+        .form-group .date-input-container {
+            position: relative;
+            width: 100%;
+        }
+        /* Estilos base para el input de fecha */
+        .form-group input[type="date"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #87CEFA;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: var(--color-text);
+            cursor: pointer;
+            font-family: var(--font-body);
+            position: relative;
+        }
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .form-group input[type="date"]:hover {
+            border-color: var(--color-primary);
+            background-color: rgba(135, 206, 250, 0.1);
+        }
+        .form-group input[type="date"]:focus {
+            border-color: var(--color-secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(64, 224, 208, 0.2);
+        }
         .form-group select {
             width: 100%;
             padding: 0.75rem;
@@ -140,17 +179,14 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
             padding-right: 2.5rem;
             font-family: var(--font-body);
         }
-        .form-group input[type="date"]:focus,
-        .form-group select:focus,
-        .form-group input[type="date"]:valid,
-        .form-group select:valid:not([value=""]) {
+        .form-group select:hover {
+            border-color: var(--color-primary);
+            background-color: rgba(135, 206, 250, 0.1);
+        }
+        .form-group select:focus {
             border-color: var(--color-secondary);
             outline: none;
             box-shadow: 0 0 0 3px rgba(64, 224, 208, 0.2);
-        }
-        .form-group input[type="date"]:hover,
-        .form-group select:hover {
-            border-color: var(--color-primary);
         }
         .form-group select option:first-child {
             color: #666;
@@ -496,6 +532,35 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
                 width: 100%;
             }
         }
+        .date-wrapper {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .date-wrapper input[type="date"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #87CEFA;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: var(--color-text);
+            cursor: pointer;
+            font-family: var(--font-body);
+        }
+
+        .date-wrapper:hover input[type="date"] {
+            border-color: var(--color-primary);
+            background-color: rgba(135, 206, 250, 0.1);
+        }
+
+        .date-wrapper input[type="date"]:focus {
+            border-color: var(--color-secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(64, 224, 208, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -537,9 +602,11 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
             
             <div class="form-group">
                 <label for="fecha_reserva">Fecha del Tour:</label>
-                <input type="date" id="fecha_reserva" name="fecha_reserva" required 
-                       min="<?php echo $min_date; ?>" 
-                       max="<?php echo $max_date; ?>">
+                <div class="date-wrapper" onclick="document.getElementById('fecha_reserva').showPicker()">
+                    <input type="date" id="fecha_reserva" name="fecha_reserva" required 
+                           min="<?php echo $min_date; ?>" 
+                           max="<?php echo $max_date; ?>">
+                </div>
             </div>
 
             <div class="form-group special-select">
