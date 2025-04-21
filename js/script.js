@@ -65,6 +65,36 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Código del slider
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    let isTransitioning = false;
+
+    // Mostrar el primer slide
+    slides[0].classList.add('active');
+
+    function showNextSlide() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        // Ocultar el slide actual
+        slides[currentSlide].classList.remove('active');
+        
+        // Calcular el siguiente slide
+        currentSlide = (currentSlide + 1) % slides.length;
+        
+        // Mostrar el siguiente slide
+        setTimeout(() => {
+            slides[currentSlide].classList.add('active');
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 1500); // Coincidir con la duración de la transición CSS
+        }, 50);
+    }
+
+    // Cambiar slides cada 6 segundos
+    setInterval(showNextSlide, 6000);
 });
 
 // Función para abrir el popup de imágenes

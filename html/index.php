@@ -149,33 +149,45 @@ session_start();
             <div class="slide-container">
                 <div class="slide">
                     <img src="../img/slider1.jpg" alt="Volcán Arenal en La Fortuna">
-                    <h2>Volcán Arenal</h2>
-                    <p>El majestuoso coloso de Costa Rica, rodeado de aguas termales y bosque tropical</p>
+                    <div class="slide-content">
+                        <h2>Volcán Arenal</h2>
+                        <p>El majestuoso coloso de Costa Rica, rodeado de aguas termales y bosque tropical</p>
+                    </div>
                 </div>
                 <div class="slide">
                     <img src="../img/slider2.jpg" alt="Playas de Guanacaste">
-                    <h2>Guanacaste</h2>
-                    <p>Playas doradas, puestas de sol espectaculares y cultura guanacasteca</p>
+                    <div class="slide-content">
+                        <h2>Guanacaste</h2>
+                        <p>Playas doradas, puestas de sol espectaculares y cultura guanacasteca</p>
+                    </div>
                 </div>
                 <div class="slide">
                     <img src="../img/slider3.jpg" alt="Cerro Chirripó">
-                    <h2>Cerro Chirripó</h2>
-                    <p>El punto más alto de Costa Rica, donde las nubes tocan la tierra</p>
+                    <div class="slide-content">
+                        <h2>Cerro Chirripó</h2>
+                        <p>El punto más alto de Costa Rica, donde las nubes tocan la tierra</p>
+                    </div>
                 </div>
                 <div class="slide">
                     <img src="../img/slider4.jpg" alt="Puerto Viejo de Talamanca">
-                    <h2>Puerto Viejo</h2>
-                    <p>Paraíso caribeño con rica cultura afrocaribeña y playas paradisíacas</p>
+                    <div class="slide-content">
+                        <h2>Puerto Viejo</h2>
+                        <p>Paraíso caribeño con rica cultura afrocaribeña y playas paradisíacas</p>
+                    </div>
                 </div>
                 <div class="slide">
                     <img src="../img/slider5.jpg" alt="Parque Nacional Manuel Antonio">
-                    <h2>Manuel Antonio</h2>
-                    <p>Donde el bosque se encuentra con el mar, hogar de una increíble biodiversidad</p>
+                    <div class="slide-content">
+                        <h2>Manuel Antonio</h2>
+                        <p>Donde el bosque se encuentra con el mar, hogar de una increíble biodiversidad</p>
+                    </div>
                 </div>
                 <div class="slide">
                     <img src="../img/slider6.jpg" alt="Bosque Nuboso de Monteverde">
-                    <h2>Monteverde</h2>
-                    <p>Bosque nuboso místico con una biodiversidad única en el mundo</p>
+                    <div class="slide-content">
+                        <h2>Monteverde</h2>
+                        <p>Bosque nuboso místico con una biodiversidad única en el mundo</p>
+                    </div>
                 </div>
             </div>
         </section>
