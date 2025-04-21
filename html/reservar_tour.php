@@ -53,7 +53,7 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservar Tour - <?php echo htmlspecialchars($tour['nombre']); ?></title>
+    <title>Reservar Tour - <?php echo htmlspecialchars($tour['nombre'], ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -521,10 +521,10 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
         <?php endif; ?>
 
         <div class="tour-info">
-            <img src="<?php echo htmlspecialchars($tour['imagen_url']); ?>" alt="<?php echo htmlspecialchars($tour['nombre']); ?>" class="tour-image">
+            <img src="<?php echo htmlspecialchars($tour['imagen_url']); ?>" alt="<?php echo htmlspecialchars($tour['nombre'], ENT_QUOTES, 'UTF-8'); ?>" class="tour-image">
             <div class="tour-details">
-                <h1><?php echo str_replace('Volc?n', 'Volcán', htmlspecialchars($tour['nombre'])); ?></h1>
-                <p><?php echo htmlspecialchars($tour['descripcion']); ?></p>
+                <h1><?php echo htmlspecialchars($tour['nombre'], ENT_QUOTES, 'UTF-8'); ?></h1>
+                <p><?php echo htmlspecialchars($tour['descripcion'], ENT_QUOTES, 'UTF-8'); ?></p>
                 <div class="duration-badge">
                     <i class="far fa-clock"></i>
                     <span>Duración: <?php echo str_replace(['dia', 'd?a'], ['día', 'día'], htmlspecialchars($tour['duracion'])); ?></span>

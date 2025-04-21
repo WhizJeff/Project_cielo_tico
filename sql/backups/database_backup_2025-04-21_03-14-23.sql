@@ -184,16 +184,20 @@ CREATE TABLE `reservaciones` (
   `usuario_id` int(11) DEFAULT NULL,
   `tour_id` int(11) DEFAULT NULL,
   `fecha_reserva` date NOT NULL,
+  `horario` time DEFAULT NULL,
   `numero_personas` int(11) NOT NULL,
   `estado` enum('pendiente','confirmada','cancelada') DEFAULT 'pendiente',
+  `tipo_bus_id` int(11) DEFAULT NULL,
   `precio_total` decimal(10,2) NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`),
   KEY `tour_id` (`tour_id`),
+  KEY `tipo_bus_id` (`tipo_bus_id`),
   CONSTRAINT `reservaciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
-  CONSTRAINT `reservaciones_ibfk_2` FOREIGN KEY (`tour_id`) REFERENCES `tours` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `reservaciones_ibfk_2` FOREIGN KEY (`tour_id`) REFERENCES `tours` (`id`),
+  CONSTRAINT `reservaciones_ibfk_3` FOREIGN KEY (`tipo_bus_id`) REFERENCES `tipos_bus` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,6 +206,7 @@ CREATE TABLE `reservaciones` (
 
 LOCK TABLES `reservaciones` WRITE;
 /*!40000 ALTER TABLE `reservaciones` DISABLE KEYS */;
+INSERT INTO `reservaciones` VALUES (1,1,1,'2025-04-24','08:00:00',22,'pendiente',1,968.00,'2025-04-21 00:30:42'),(2,1,9,'2025-04-23','08:00:00',35,'pendiente',3,770.00,'2025-04-21 00:40:51');
 /*!40000 ALTER TABLE `reservaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,8 +278,8 @@ DROP TABLE IF EXISTS `tours`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tours` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` text NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
   `precio` decimal(10,2) NOT NULL,
   `precio_turistico` decimal(10,2) NOT NULL,
   `precio_ejecutivo` decimal(10,2) NOT NULL,
@@ -299,7 +304,7 @@ CREATE TABLE `tours` (
 
 LOCK TABLES `tours` WRITE;
 /*!40000 ALTER TABLE `tours` DISABLE KEYS */;
-INSERT INTO `tours` VALUES (1,'Volc?n Arenal','El majestuoso coloso de Costa Rica, rodeado de aguas termales y bosque tropical.',0.00,22000.00,33000.00,44000.00,'1 d?a',40,'../img/slider1.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(2,'Guanacaste','Playas doradas, puestas de sol espectaculares y cultura guanacasteca.',0.00,44000.00,66000.00,88000.00,'2 d?as',35,'../img/slider2.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(3,'Cerro Chirrip?','El punto m?s alto de Costa Rica, donde las nubes tocan la tierra.',0.00,44000.00,66000.00,88000.00,'2 d?as',30,'../img/slider3.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(4,'Manuel Antonio','Donde el bosque se encuentra con el mar, hogar de una incre?ble biodiversidad.',0.00,22000.00,33000.00,44000.00,'1 d?a',40,'../img/slider5.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(5,'Monteverde','Bosque nuboso m?stico con una biodiversidad ?nica en el mundo.',0.00,44000.00,66000.00,88000.00,'2 d?as',35,'../img/slider6.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(6,'Puerto Viejo','Para?so caribe?o con rica cultura afrocaribe?a y playas paradis?acas.',0.00,66000.00,99000.00,132000.00,'3 d?as',30,'../img/slider4.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(7,'R?o Celeste','Descubre el m?gico r?o de aguas turquesas en el Parque Nacional Volc?n Tenorio.',0.00,22000.00,33000.00,44000.00,'1 d?a',40,'../img/tours/rio-celeste.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(8,'Cahuita','Explora los arrecifes de coral y la exuberante selva tropical del Caribe.',0.00,44000.00,66000.00,88000.00,'2 d?as',35,'../img/tours/cahuita.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(9,'San Jos?','Recorre la capital y descubre su rica historia, cultura y arquitectura.',0.00,22000.00,33000.00,44000.00,'1 d?a',40,'../img/tours/san-jose.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32');
+INSERT INTO `tours` VALUES (1,'Volcán Arenal','El majestuoso coloso de Costa Rica, rodeado de aguas termales y bosque tropical.',0.00,22000.00,33000.00,44000.00,'1 d?a',40,'../img/slider1.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(2,'Guanacaste','Playas doradas, puestas de sol espectaculares y cultura guanacasteca.',0.00,44000.00,66000.00,88000.00,'2 d?as',35,'../img/slider2.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(3,'Cerro Chirripó','El punto más alto de Costa Rica, donde las nubes tocan la tierra.',0.00,44000.00,66000.00,88000.00,'2 d?as',30,'../img/slider3.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(4,'Manuel Antonio','Donde el bosque se encuentra con el mar, hogar de una incre?ble biodiversidad.',0.00,22000.00,33000.00,44000.00,'1 d?a',40,'../img/slider5.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(5,'Monteverde','Bosque nuboso m?stico con una biodiversidad ?nica en el mundo.',0.00,44000.00,66000.00,88000.00,'2 d?as',35,'../img/slider6.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(6,'Puerto Viejo','Para?so caribe?o con rica cultura afrocaribe?a y playas paradis?acas.',0.00,66000.00,99000.00,132000.00,'3 d?as',30,'../img/slider4.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(7,'Río Celeste','Descubre el mágico río de aguas turquesas en el Parque Nacional Volcán Tenorio.',0.00,22000.00,33000.00,44000.00,'1 d?a',40,'../img/tours/rio-celeste.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(8,'Cahuita','Explora los arrecifes de coral y la exuberante selva tropical del Caribe.',0.00,44000.00,66000.00,88000.00,'2 d?as',35,'../img/tours/cahuita.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32'),(9,'San José','Recorre la capital y descubre su rica historia, cultura y arquitectura.',0.00,22000.00,33000.00,44000.00,'1 d?a',40,'../img/tours/san-jose.jpg',NULL,NULL,NULL,NULL,'activo',1,'2025-04-16 01:51:32');
 /*!40000 ALTER TABLE `tours` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,4 +350,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-17 17:25:01
+-- Dump completed on 2025-04-20 19:14:24
