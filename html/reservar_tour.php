@@ -739,6 +739,17 @@ $max_date = date('Y-m-d', strtotime('+6 months'));
 
     function confirmarReserva() {
         if (document.getElementById('aceptar-terminos').checked) {
+            // Verificar que todos los campos necesarios estén completos
+            const fecha = document.getElementById('fecha_reserva').value;
+            const horario = document.getElementById('horario').value;
+            const numeroPersonas = document.getElementById('numero_personas').value;
+            const tipoBus = document.querySelector('input[name="tipo_bus"]:checked');
+
+            if (!fecha || !horario || !numeroPersonas || !tipoBus) {
+                alert('Por favor, complete todos los campos antes de continuar.');
+                return;
+            }
+
             document.querySelector('form').submit();
         }
     }

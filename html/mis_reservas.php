@@ -11,17 +11,29 @@ if (!isset($_SESSION['user_id'])) {
 
 // Obtener las reservas del usuario
 try {
+    error_log("Intentando obtener reservas para usuario_id: " . $_SESSION['user_id']);
+    
     $stmt = $conn->prepare("
-        SELECT r.*, t.nombre as nombre_tour, t.precio 
+        SELECT 
+            r.*,
+            t.nombre as nombre_tour,
+            tb.nombre as nombre_bus,
+            tb.capacidad_pasajeros
         FROM reservaciones r 
         JOIN tours t ON r.tour_id = t.id 
+        JOIN tipos_bus tb ON r.tipo_bus_id = tb.id
         WHERE r.usuario_id = ? 
         ORDER BY r.fecha_creacion DESC
     ");
+    
     $stmt->execute([$_SESSION['user_id']]);
-    $reservas = $stmt->fetchAll();
+    $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    error_log("Reservas encontradas: " . count($reservas));
+    error_log("Datos de reservas: " . print_r($reservas, true));
+    
 } catch (PDOException $e) {
     error_log("Error al obtener reservas: " . $e->getMessage());
+    error_log("Stack trace: " . $e->getTraceAsString());
     $_SESSION['error'] = 'Error al cargar las reservas.';
     $reservas = [];
 }
@@ -112,8 +124,10 @@ try {
                 <thead>
                     <tr>
                         <th>Tour</th>
-                        <th>Fecha de Reserva</th>
-                        <th>Número de Personas</th>
+                        <th>Fecha</th>
+                        <th>Horario</th>
+                        <th>Tipo de Bus</th>
+                        <th>Personas</th>
                         <th>Precio Total</th>
                         <th>Estado</th>
                         <th>Acciones</th>
@@ -124,8 +138,10 @@ try {
                         <tr>
                             <td><?php echo htmlspecialchars($reserva['nombre_tour']); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($reserva['fecha_reserva'])); ?></td>
+                            <td><?php echo date('h:i A', strtotime($reserva['horario'])); ?></td>
+                            <td><?php echo htmlspecialchars($reserva['nombre_bus']); ?></td>
                             <td><?php echo $reserva['numero_personas']; ?></td>
-                            <td>₡<?php echo number_format($reserva['precio_total'], 2); ?></td>
+                            <td>$<?php echo number_format($reserva['precio_total'], 0); ?></td>
                             <td>
                                 <span class="estado-<?php echo strtolower($reserva['estado']); ?>">
                                     <?php echo ucfirst($reserva['estado']); ?>
