@@ -12,7 +12,7 @@ session_start();
     <link rel="icon" type="image/png" href="../img/logo.png" />
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="../js/script.js" defer></script>
     <style>
         .location-container {
@@ -170,10 +170,131 @@ session_start();
                 padding: 1.5rem;
             }
         }
+
+        .user-menu {
+            position: relative;
+            display: inline-block;
+        }
+        .user-toggle {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .user-toggle:hover, .user-toggle:focus {
+            color: #FF7F50;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #FF7F50;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 4px;
+            top: 100%;
+            margin-top: 5px;
+            list-style: none;
+            padding: 0;
+        }
+        .user-menu.active .user-dropdown {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .user-dropdown a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .user-dropdown a:hover {
+            background-color: #FF6B3D;
+        }
+        .user-dropdown li:first-child a {
+            border-radius: 4px 4px 0 0;
+        }
+        .user-dropdown li:last-child a {
+            border-radius: 0 0 4px 4px;
+        }
+        .user-info {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .user-info i {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
-    <?php include '../templates/header.php'; ?>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <a href="index.php">
+                    <img src="../img/logo.png" alt="Cielo Tico Logo" class="logo">
+                    <h1>Cielo Tico</h1>
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="acerca.php">Acerca de</a></li>
+                    <li><a href="servicios.php">Servicios</a></li>
+                    <li><a href="ubicacion.php">Ubicación</a></li>
+                    <li><a href="contacto.php">Contacto</a></li>
+                    <?php if(isset($_SESSION['user_id'])): ?>
+                        <li class="user-menu">
+                            <button type="button" class="user-toggle">
+                                <i class="fas fa-user"></i>
+                                <?php echo htmlspecialchars($_SESSION['nombre']); ?>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <ul class="user-dropdown">
+                                <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+                                    <li><a href="/cielotico/html/admin/"><i class="fas fa-cog"></i> Administrator</a></li>
+                                <?php endif; ?>
+                                <li><a href="/cielotico/html/perfil.php"><i class="fas fa-user-circle"></i> Mi Perfil</a></li>
+                                <li><a href="/cielotico/html/mis_reservas.php"><i class="fas fa-calendar-check"></i> Mis Reservas</a></li>
+                                <li><a href="/cielotico/php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="login.php" class="btn-login">Iniciar Sesión</a></li>
+                        <li><a href="registro.php" class="btn-register">Registro</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <div class="location-container">
         <div class="map-container">

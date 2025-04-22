@@ -104,7 +104,7 @@ CREATE TABLE `contactos` (
 
 LOCK TABLES `contactos` WRITE;
 /*!40000 ALTER TABLE `contactos` DISABLE KEYS */;
-INSERT INTO `contactos` VALUES (1,'Anis Zapata','azapata@hotmail.com','+506 1234-5678','Hola quiero saber cuanto cuesta un tour de mas dias los ofrecen?','nuevo','2025-04-22 05:22:01');
+INSERT INTO `contactos` VALUES (1,'Anis Zapata','azapata@hotmail.com','+506 1234-5678','Hola quiero saber cuanto cuesta un tour de mas dias los ofrecen?','leido','2025-04-22 05:22:01');
 /*!40000 ALTER TABLE `contactos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,4 +338,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-21 23:22:26
+-- Dump completed on 2025-04-22 17:55:44

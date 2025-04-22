@@ -12,25 +12,14 @@ session_start();
     <link rel="icon" type="image/png" href="../img/logo.png" />
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="../js/script.js" defer></script>
     <style>
         .user-menu {
             position: relative;
             display: inline-block;
         }
-        .user-menu-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #FF7F50;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1000;
-            border-radius: 4px;
-            top: 100%;
-            margin-top: 5px;
-        }
-        .user-menu-button {
+        .user-toggle {
             background: none;
             border: none;
             color: white;
@@ -41,14 +30,30 @@ session_start();
             gap: 8px;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
+            text-decoration: none;
             transition: all 0.3s ease;
+            outline: none;
         }
-        .user-menu-button:hover {
+        .user-toggle:hover, .user-toggle:focus {
             color: #FF7F50;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
         }
-        .user-menu.active .user-menu-content {
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #FF7F50;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 4px;
+            top: 100%;
+            margin-top: 5px;
+            list-style: none;
+            padding: 0;
+        }
+        .user-menu.active .user-dropdown {
             display: block;
             animation: fadeIn 0.3s ease;
         }
@@ -62,7 +67,7 @@ session_start();
                 transform: translateY(0);
             }
         }
-        .user-menu-content a {
+        .user-dropdown a {
             color: white;
             padding: 12px 16px;
             text-decoration: none;
@@ -70,8 +75,14 @@ session_start();
             transition: background-color 0.3s;
             font-family: 'Montserrat', sans-serif;
         }
-        .user-menu-content a:hover {
+        .user-dropdown a:hover {
             background-color: #FF6B3D;
+        }
+        .user-dropdown li:first-child a {
+            border-radius: 4px 4px 0 0;
+        }
+        .user-dropdown li:last-child a {
+            border-radius: 0 0 4px 4px;
         }
         .user-info {
             padding: 12px 16px;
@@ -106,11 +117,11 @@ session_start();
                     <li><a href="contacto.php">Contacto</a></li>
                     <?php if(isset($_SESSION['user_id'])): ?>
                         <li class="user-menu">
-                            <a href="#" class="user-toggle">
+                            <button type="button" class="user-toggle">
                                 <i class="fas fa-user"></i>
                                 <?php echo htmlspecialchars($_SESSION['nombre']); ?>
                                 <i class="fas fa-chevron-down"></i>
-                            </a>
+                            </button>
                             <ul class="user-dropdown">
                                 <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
                                     <li><a href="/cielotico/html/admin/"><i class="fas fa-cog"></i> Administrator</a></li>
@@ -201,34 +212,5 @@ session_start();
             <p>&copy; 2025 Cielo Tico. Todos los derechos reservados.</p>
         </div>
     </footer>
-    <script src="../js/script.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const userToggle = document.querySelector('.user-toggle');
-        const userMenu = document.querySelector('.user-menu');
-
-        if (userToggle && userMenu) {
-            userToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                userMenu.classList.toggle('active');
-            });
-
-            // Cerrar el menú cuando se hace clic fuera de él
-            document.addEventListener('click', function(e) {
-                if (!userMenu.contains(e.target)) {
-                    userMenu.classList.remove('active');
-                }
-            });
-
-            // Cerrar el menú con la tecla ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && userMenu.classList.contains('active')) {
-                    userMenu.classList.remove('active');
-                }
-            });
-        }
-    });
-    </script>
 </body>
 </html> 

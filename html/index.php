@@ -16,6 +16,7 @@ session_start();
     <link rel="stylesheet" href="../css/estilos.css" />
     <link rel="preload" href="../img/slider1.jpg" as="image" />
     <link rel="preload" href="../img/slider2.jpg" as="image" />
+    <script src="../js/script.js" defer></script>
     <style>
         .user-menu {
             position: relative;
@@ -34,8 +35,9 @@ session_start();
             font-size: 1rem;
             text-decoration: none;
             transition: all 0.3s ease;
+            outline: none;
         }
-        .user-toggle:hover {
+        .user-toggle:hover, .user-toggle:focus {
             color: #FF7F50;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
@@ -121,11 +123,11 @@ session_start();
                     <li><a href="contacto.php">Contacto</a></li>
                     <?php if(isset($_SESSION['user_id'])): ?>
                         <li class="user-menu">
-                            <a href="#" class="user-toggle">
+                            <button type="button" class="user-toggle">
                                 <i class="fas fa-user"></i>
                                 <?php echo htmlspecialchars($_SESSION['nombre']); ?>
                                 <i class="fas fa-chevron-down"></i>
-                            </a>
+                            </button>
                             <ul class="user-dropdown">
                                 <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
                                     <li><a href="/cielotico/html/admin/"><i class="fas fa-cog"></i> Administrator</a></li>
@@ -309,34 +311,5 @@ session_start();
         </div>
     </footer>
 
-    <script src="../js/script.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const userToggle = document.querySelector('.user-toggle');
-        const userMenu = document.querySelector('.user-menu');
-
-        if (userToggle && userMenu) {
-            userToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                userMenu.classList.toggle('active');
-            });
-
-            // Cerrar el menú cuando se hace clic fuera de él
-            document.addEventListener('click', function(e) {
-                if (!userMenu.contains(e.target)) {
-                    userMenu.classList.remove('active');
-                }
-            });
-
-            // Cerrar el menú con la tecla ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && userMenu.classList.contains('active')) {
-                    userMenu.classList.remove('active');
-                }
-            });
-        }
-    });
-    </script>
 </body>
 </html> 
