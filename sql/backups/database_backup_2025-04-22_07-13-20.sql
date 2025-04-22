@@ -197,7 +197,7 @@ CREATE TABLE `reservaciones` (
   CONSTRAINT `reservaciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `reservaciones_ibfk_2` FOREIGN KEY (`tour_id`) REFERENCES `tours` (`id`),
   CONSTRAINT `reservaciones_ibfk_3` FOREIGN KEY (`tipo_bus_id`) REFERENCES `tipos_bus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE `reservaciones` (
 
 LOCK TABLES `reservaciones` WRITE;
 /*!40000 ALTER TABLE `reservaciones` DISABLE KEYS */;
-INSERT INTO `reservaciones` VALUES (1,1,1,'2025-04-24','08:00:00',22,'pendiente',1,968.00,'2025-04-21 00:30:42'),(2,1,9,'2025-04-23','08:00:00',35,'pendiente',3,770.00,'2025-04-21 00:40:51');
+INSERT INTO `reservaciones` VALUES (1,1,1,'2025-04-24','08:00:00',22,'pendiente',1,968.00,'2025-04-21 00:30:42'),(2,1,9,'2025-04-23','08:00:00',35,'pendiente',3,770.00,'2025-04-21 00:40:51'),(3,1,1,'2025-09-22','14:00:00',4,'pendiente',1,176.00,'2025-04-21 03:16:09');
 /*!40000 ALTER TABLE `reservaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,4 +350,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-20 19:14:24
+-- Dump completed on 2025-04-21 23:13:20
