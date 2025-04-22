@@ -69,5 +69,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     header('Location: /cielotico/html/contacto.php');
     exit;
-}
-?> 
+} 
