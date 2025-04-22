@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../config/database.php';
+require_once 'classes/Mailer.php';
 
 // Verificar si la solicitud es POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -44,6 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $telefono,
             $mensaje
         ]);
+
+        // Enviar notificación por correo
+        $mailer = new Mailer();
+        $mensaje_data = [
+            'nombre' => $nombre,
+            'email' => $email,
+            'telefono' => $telefono,
+            'mensaje' => $mensaje
+        ];
+        $mailer->notificarNuevoMensaje($mensaje_data);
 
         $_SESSION['success'] = 'Mensaje enviado correctamente. Nos pondremos en contacto contigo pronto.';
         header('Location: /cielotico/html/contacto.php');

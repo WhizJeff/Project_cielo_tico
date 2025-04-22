@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../config/database.php';
+require_once 'classes/Mailer.php';
 
 // Verificar si el usuario está logueado
 if (!isset($_SESSION['user_id'])) {
@@ -124,13 +125,31 @@ try {
     error_log("Intentando insertar reserva con valores: " . print_r($valores, true));
 
     $stmt->execute($valores);
-    error_log("Reserva insertada correctamente");
+    $reserva_id = $conn->lastInsertId();
+
+    // Obtener datos del usuario
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Preparar datos para la notificación
+    $reserva = [
+        'id' => $reserva_id,
+        'fecha_reserva' => $fecha_reserva,
+        'horario' => $horario,
+        'numero_personas' => $numero_personas,
+        'precio_total' => $precio_total
+    ];
+
+    // Enviar notificaciones por correo
+    $mailer = new Mailer();
+    $mailer->notificarNuevaReserva($reserva, $tour, $usuario);
 
     // Confirmar transacción
     $conn->commit();
     error_log("Transacción confirmada");
 
-    $_SESSION['success'] = '¡Reserva realizada con éxito! Puedes ver los detalles en "Mis Reservas".';
+    $_SESSION['success'] = '¡Reserva realizada con éxito! Te hemos enviado un correo con los detalles.';
     header('Location: /cielotico/html/mis_reservas.php');
     exit;
 
