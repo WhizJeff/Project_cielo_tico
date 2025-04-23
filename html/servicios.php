@@ -14,7 +14,7 @@ session_start();
     <link rel="icon" type="image/png" href="../img/logo.png" />
     <link rel="stylesheet" href="/cielotico/css/estilos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="../js/script.js" defer></script>
     <style>
         .user-menu {
@@ -34,8 +34,9 @@ session_start();
             font-size: 1rem;
             text-decoration: none;
             transition: all 0.3s ease;
+            outline: none;
         }
-        .user-toggle:hover {
+        .user-toggle:hover, .user-toggle:focus {
             color: #FF7F50;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
@@ -122,11 +123,11 @@ session_start();
                     <li><a href="contacto.php">Contacto</a></li>
                     <?php if(isset($_SESSION['user_id'])): ?>
                         <li class="user-menu">
-                            <a href="#" class="user-toggle">
+                            <button type="button" class="user-toggle">
                                 <i class="fas fa-user"></i>
                                 <?php echo htmlspecialchars($_SESSION['nombre']); ?>
                                 <i class="fas fa-chevron-down"></i>
-                            </a>
+                            </button>
                             <ul class="user-dropdown">
                                 <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
                                     <li><a href="/cielotico/html/admin/"><i class="fas fa-cog"></i> Administrator</a></li>
@@ -398,11 +399,8 @@ session_start();
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const userToggle = document.querySelector('.user-toggle');
-        const userMenu = document.querySelector('.user-menu');
         let currentTourId = null;
 
         // Función para abrir el popup con la información del tour
@@ -437,27 +435,6 @@ session_start();
             }
 
             modal.style.display = "block";
-        }
-
-        // Resto del código existente para el menú de usuario...
-        if (userToggle && userMenu) {
-            userToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                userMenu.classList.toggle('active');
-            });
-
-            document.addEventListener('click', function(e) {
-                if (!userMenu.contains(e.target)) {
-                    userMenu.classList.remove('active');
-                }
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && userMenu.classList.contains('active')) {
-                    userMenu.classList.remove('active');
-                }
-            });
         }
 
         // Asignar la función openImagePopup al objeto window para que esté disponible globalmente

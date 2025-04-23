@@ -42,26 +42,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Menú de usuario
     const userToggle = document.querySelector('.user-toggle');
-    const userDropdown = document.querySelector('.user-dropdown');
+    const userMenu = document.querySelector('.user-menu');
 
-    if (userToggle && userDropdown) {
+    if (userToggle && userMenu) {
         userToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            userDropdown.classList.toggle('show');
+            userMenu.classList.toggle('active');
         });
 
-        // Cerrar el menú al hacer clic fuera
+        // Cerrar el menú cuando se hace clic fuera de él
         document.addEventListener('click', function(e) {
-            if (!userToggle.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.remove('show');
+            if (!userMenu.contains(e.target)) {
+                userMenu.classList.remove('active');
             }
         });
 
-        // Cerrar el menú con ESC
+        // Cerrar el menú con la tecla ESC
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && userDropdown.classList.contains('show')) {
-                userDropdown.classList.remove('show');
+            if (e.key === 'Escape' && userMenu.classList.contains('active')) {
+                userMenu.classList.remove('active');
             }
         });
     }
