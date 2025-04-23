@@ -25,74 +25,97 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['rol']) || $_SESSION['rol']
         }
         .admin-header {
             margin-bottom: 2rem;
-            padding: 1rem;
-            background-color: #f5f5f5;
-            border-radius: 8px;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 12px;
+            text-align: center;
+            border: 3px solid #40E0D0;
+            box-shadow: 0 4px 15px rgba(64, 224, 208, 0.15);
         }
         .admin-header h1 {
-            color: #333;
+            color: #000000;
             margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
         }
         .admin-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
+            margin-top: 2rem;
         }
         .admin-card {
             background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
         }
         .admin-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         .admin-card h3 {
             color: #333;
-            margin-top: 0;
+            margin: 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
         }
         .admin-card p {
             color: #666;
             margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
         .admin-card a {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background-color: #FF7F50;
+            padding: 0.75rem 2rem;
+            background-color: #40E0D0;
             color: white;
             text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
+            border-radius: 50px;
+            transition: all 0.3s ease;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
         .admin-card a:hover {
-            background-color: #FF6B3D;
+            background-color: #20B2AA;
+            transform: scale(1.05);
         }
         .admin-card i {
-            font-size: 2rem;
-            color: #FF7F50;
+            font-size: 2.5rem;
+            color: #40E0D0;
             margin-bottom: 1rem;
             display: block;
+            transition: all 0.3s ease;
+        }
+        .admin-card:hover i {
+            transform: scale(1.1);
         }
         .welcome-message {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #666;
             margin-top: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
     <header>
         <div class="header-content">
-            <div class="logo-container">
-                <a href="/cielotico/html/index.php">
-                    <img src="/cielotico/assets/img/logo.png" alt="Cielo Tico Logo" class="logo">
-                    <h1>Cielo Tico</h1>
-                </a>
+            <div class="logo-container" style="display: flex; align-items: center;">
+                <img src="/cielotico/~assets/logo/logo_ctt.png" alt="Cielo Tico Logo" style="width: 60px; height: 60px; margin-right: 15px;">
+                <span style="color: white; font-size: 32px; font-weight: bold;">Cielo Tico</span>
             </div>
             <nav>
                 <ul class="nav-menu">
+                    <li><a href="index.php">Panel de Control</a></li>
                     <li><a href="/cielotico/html/index.php">Volver al Sitio</a></li>
                     <li><a href="/cielotico/php/logout.php">Cerrar Sesión</a></li>
                 </ul>

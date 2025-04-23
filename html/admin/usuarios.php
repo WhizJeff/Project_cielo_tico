@@ -67,16 +67,25 @@ try {
         }
         .admin-header {
             margin-bottom: 2rem;
-            padding: 1rem;
-            background-color: #f5f5f5;
-            border-radius: 8px;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 12px;
+            text-align: left;
+            border: 3px solid #40E0D0;
+            box-shadow: 0 4px 15px rgba(64, 224, 208, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .admin-header h1 {
-            color: #333;
+            color: #000000;
             margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            background-clip: text;
         }
         .users-controls {
             display: flex;
@@ -108,20 +117,75 @@ try {
             border-radius: 4px;
             font-size: 1rem;
         }
-        .btn-add {
-            background-color: #4CAF50;
-            color: white;
-            padding: 0.5rem 1rem;
+        .btn {
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 4px;
+            border-radius: 50px;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .btn-add {
+            background-color: #2ecc71;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
         .btn-add:hover {
-            background-color: #45a049;
+            background-color: #27ae60;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(46, 204, 113, 0.3);
+        }
+        .btn-edit,
+        .btn-delete {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-edit {
+            background-color: #2ecc71;
+        }
+        .btn-delete {
+            background-color: #f44336;
+        }
+        .btn-edit:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(46, 204, 113, 0.3);
+        }
+        .btn-delete:hover {
+            background-color: #da190b;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .users-table {
             width: 100%;
@@ -152,39 +216,25 @@ try {
             display: flex;
             gap: 0.5rem;
         }
-        .btn-edit,
-        .btn-delete {
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            color: white;
-            text-decoration: none;
-            font-size: 0.875rem;
-        }
-        .btn-edit {
-            background-color: #4CAF50;
-        }
-        .btn-delete {
-            background-color: #f44336;
-        }
-        .btn-edit:hover {
-            background-color: #45a049;
-        }
-        .btn-delete:hover {
-            background-color: #da190b;
-        }
         .role-badge {
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
         .role-admin {
-            background-color: #ff7f50;
+            background-color: #40E0D0;
             color: white;
         }
         .role-cliente {
-            background-color: #4CAF50;
+            background-color: #2ecc71;
             color: white;
+        }
+        .role-admin:hover,
+        .role-cliente:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .no-results {
             text-align: center;
@@ -196,11 +246,9 @@ try {
 <body>
     <header>
         <div class="header-content">
-            <div class="logo-container">
-                <a href="/cielotico/html/index.php">
-                    <img src="/cielotico/assets/img/logo.png" alt="Cielo Tico Logo" class="logo">
-                    <h1>Cielo Tico</h1>
-                </a>
+            <div class="logo-container" style="display: flex; align-items: center;">
+                <img src="/cielotico/~assets/logo/logo_ctt.png" alt="Cielo Tico Logo" style="width: 60px; height: 60px; margin-right: 15px;">
+                <span style="color: white; font-size: 32px; font-weight: bold;">Cielo Tico</span>
             </div>
             <nav>
                 <ul class="nav-menu">
